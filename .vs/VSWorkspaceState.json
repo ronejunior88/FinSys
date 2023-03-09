@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\BackEnd",
+    "\\BackEnd\\src"
   ],
-  "SelectedNode": "\\C:\\Projetos\\FinSys",
+  "SelectedNode": "\\BackEnd\\src",
   "PreviewInSolutionExplorer": false
 }
