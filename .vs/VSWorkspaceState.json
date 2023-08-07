@@ -1,12 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+    "\\BackEnd",
     "\\BackEnd\\src",
     "\\BackEnd\\src\\FinSys",
-    "\\BackEnd\\src\\FinSys\\FinSys.Query",
-    "\\FrontEnd",
-    "\\FrontEnd\\src\\fin-sys-app"
+    "\\FrontEnd"
   ],
-  "SelectedNode": "\\BackEnd",
+  "SelectedNode": "\\BackEnd\\src\\FinSys\\FinSys.sln",
   "PreviewInSolutionExplorer": false
 }
