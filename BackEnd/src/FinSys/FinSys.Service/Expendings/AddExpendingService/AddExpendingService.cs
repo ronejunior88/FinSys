@@ -17,10 +17,9 @@ namespace FinSys.Service.Expendings.AddExpendingService
             //_configuration = configuration;
             //_connection = _configuration.GetSection("ConnectionStrings").GetSection("ProdutoConnection").Value;
         }
-        public Task<Unit> AddExpending(ExpendingDTO expending)
+        public async Task AddExpending(ExpendingDTO expending)
         {
             //_connection.ExecuteAsync("@INSERT INTO Expending VALUES()");
-            return null;
         }
     }
 }

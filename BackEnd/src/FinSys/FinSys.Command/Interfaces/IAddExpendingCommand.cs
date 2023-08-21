@@ -1,10 +1,11 @@
-﻿using FinSys.Command.Domain;
+﻿using FinSys.Command.AddExpendingCommand;
+using FinSys.Command.Domain;
 using MediatR;
 
 namespace FinSys.Command.Interfaces
 {
     public interface IAddExpendingCommand
     {
-        Task<Unit> AddExpendingAsync(ExpendingCommand command);
+        Task AddExpendingAsync(AddExpendingCommandRequest command);
     }
 }

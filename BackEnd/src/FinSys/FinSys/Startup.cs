@@ -15,6 +15,10 @@ namespace FinSys
         public void ConfigureServices(IServiceCollection services)
         {
             injection.InjectionDependencies(services);
+            injection.InjectionAutoMapper();
+
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "FinSys", Version = "v1" });
@@ -39,7 +43,7 @@ namespace FinSys
             });
             app.UseRouting();
 
-          
+
         }
     }
 }

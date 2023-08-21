@@ -7,6 +7,6 @@ namespace FinSys.Controllers
     [ApiController]
     public class FinSysController : ControllerBase
     {
-
+        
     }
 }
