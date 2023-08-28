@@ -9,7 +9,7 @@
         "ASPNETCORE_ENTRYPOINT" : "Main"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5050"
+      "applicationUrl": "http://localhost:5050/"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -26,7 +26,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:20991",
+      "applicationUrl": "http://localhost:5050/",
       "sslPort": 44323
     }
   }

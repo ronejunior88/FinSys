@@ -1,5 +1,7 @@
 ﻿using FinSys.Command.AddExpendingCommand;
-using FinSys.Command.Interfaces;
+using FinSys.Service.Expendings.AddExpendingService;
+using FinSys.Service.Interfaces;
+using MediatR;
 
 namespace FinSys.IoC
 {
@@ -17,7 +19,12 @@ namespace FinSys.IoC
 
         public void InjectionDependencies(IServiceCollection services)
         {
-            services.AddSingleton<IAddExpendingCommand, AddExpendingCommand>();
+            services.AddTransient<IRequestHandler<AddExpendingCommand>, AddExpendingCommandHandler>();
+        }
+
+        public void InjectServices(IServiceCollection services)
+        {
+            services.AddScoped<IAddExpendingService, AddExpendingService>();
         }
     }
 }

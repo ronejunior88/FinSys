@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using FinSys.Command.AddExpendingCommand;
-using FinSys.Command.Interfaces;
-using FinSys.Service.Domain;
 using FinSys.Service.Interfaces;
-using Microsoft.AspNetCore.Http;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinSys.Controllers
@@ -13,20 +11,29 @@ namespace FinSys.Controllers
     public class FinSysController : ControllerBase
     {
         private IConfiguration _configuration;
-        private IMapper _mapper; 
+        private IMapper _mapper;
+        private IMediator _mediator;
         private IAddExpendingService _addExpendingService;
 
-        public FinSysController(IConfiguration configuration, IMapper mapper,IAddExpendingService addExpendingService)
+        public FinSysController(IConfiguration configuration, IMapper mapper,IMediator mediator, IAddExpendingService addExpendingService)
         {   
             _configuration = configuration;
             _mapper = mapper;
+            _mediator = mediator;
             _addExpendingService = addExpendingService;
         }
 
-        [HttpPost]
-        public ActionResult Post([FromBody] AddExpendingCommandRequest request)
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
         {
-            return Ok(_addExpendingService.AddExpending(_mapper.Map<ExpendingDTO>(request)));
+            return Ok(id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]AddExpendingCommand request)
+        {
+            await _mediator.Send(request);
+            return Ok();
         }
     }
 }

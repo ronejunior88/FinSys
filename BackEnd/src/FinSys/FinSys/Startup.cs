@@ -1,4 +1,6 @@
 ﻿using FinSys.IoC;
+using Microsoft.Extensions.DependencyInjection;
+using MediatR.Extensions.Microsoft.DependencyInjection;
 
 namespace FinSys
 {
@@ -14,7 +16,10 @@ namespace FinSys
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMediatR(typeof(Startup));
+
             injection.InjectionDependencies(services);
+            injection.InjectServices(services);
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -23,10 +28,7 @@ namespace FinSys
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "FinSys", Version = "v1" });
             });
             services.AddControllers();
-            // Configura a injeção de dependência para a classe AppSettings
-            //services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-
-            // Outros serviços e configurações necessárias...
+            services.AddRouting();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -41,6 +43,12 @@ namespace FinSys
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "FinSys v1");
             });
             app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+
+           
 
 
         }

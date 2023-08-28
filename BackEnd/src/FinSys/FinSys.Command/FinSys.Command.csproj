@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Folder Include="DeleteExpendingCommand\" />
+    <Folder Include="Interfaces\" />
     <Folder Include="UpdateExpendingCommand\" />
   </ItemGroup>
 

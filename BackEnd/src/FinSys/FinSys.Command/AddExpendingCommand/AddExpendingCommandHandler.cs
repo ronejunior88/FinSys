@@ -1,27 +1,26 @@
-﻿using FinSys.Command.Interfaces;
+﻿using AutoMapper;
+using FinSys.Service.Domain;
+using FinSys.Service.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinSys.Command.AddExpendingCommand
 {
-    public class AddExpendingCommandHandler : IRequestHandler<AddExpendingCommandRequest>
+    public class AddExpendingCommandHandler : IRequestHandler<AddExpendingCommand>
     {
         IConfiguration _configuration;
-        IAddExpendingCommand _command;
-        public AddExpendingCommandHandler(IConfiguration configuration,IAddExpendingCommand command)
+        IAddExpendingService _command;
+        IMapper _mapper;
+        public AddExpendingCommandHandler(IConfiguration configuration, IMapper mapper ,IAddExpendingService command)
         {
             _configuration = configuration;
+            _mapper = mapper;
             _command = command;
         }
 
-        public async Task Handle(AddExpendingCommandRequest request, CancellationToken cancellationToken)
+        public async Task Handle(AddExpendingCommand request, CancellationToken cancellationToken)
         {
-            await _command.AddExpendingAsync(request);
+            await _command.AddExpending(_mapper.Map<ExpendingDTO>(request));
         }
     }
 }
