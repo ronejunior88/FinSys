@@ -4,9 +4,9 @@ using FinSys.Service.Domain;
 
 namespace FinSys.IoC
 {
-    public class MappingProfile : Profile
+    public class ProfileMapping : Profile
     {
-        public MappingProfile(IMapper _mapper)
+        public ProfileMapping(IMapper _mapper)
         {
             CreateMap<AddExpendingCommandRequest, ExpendingDTO>().ReverseMap();
         }

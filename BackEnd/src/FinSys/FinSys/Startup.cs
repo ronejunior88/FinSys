@@ -15,7 +15,6 @@ namespace FinSys
         public void ConfigureServices(IServiceCollection services)
         {
             injection.InjectionDependencies(services);
-            injection.InjectionAutoMapper();
 
             services.AddAutoMapper(typeof(Startup));
 
