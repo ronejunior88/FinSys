@@ -25,11 +25,12 @@ namespace FinSys.Service.Expendings.AddExpendingService
 
         public async Task AddExpending(ExpendingDTO expending)
         {
-            _connection = _configuration.GetConnectionString("ConnectionStrings");
+            _connection = _configuration.GetConnectionString("FinSys");
 
             using (SqlConnection connection = new SqlConnection(_connection))
             {
-                await connection.ExecuteAsync("@INSERT INTO Expending VALUES()");
+                var command = $"INSERT INTO Expending ([Id], [Value], [Description]) VALUES ('{expending.Id}', '{expending.Value}', '{expending.Description}')";
+                await connection.ExecuteAsync(command);
             }            
         }
     }

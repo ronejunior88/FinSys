@@ -3,7 +3,9 @@
     public class ExpendingDTO
     {
         public ExpendingDTO()
-        {  }
+        {
+            Id = Guid.NewGuid();
+        }
 
         public Guid Id { get; set; }
         public double Value { get; set; }
