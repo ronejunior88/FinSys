@@ -20,7 +20,8 @@ namespace FinSys.Command.AddExpendingCommand
 
         public async Task Handle(AddExpendingCommand request, CancellationToken cancellationToken)
         {
-            await _command.AddExpending(_mapper.Map<ExpendingDTO>(request));
+            var command = _mapper.Map<ExpendingDTO>(request);
+            await _command.AddExpending(command);
         }
     }
 }

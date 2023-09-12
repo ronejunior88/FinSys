@@ -26,5 +26,10 @@ namespace FinSys.IoC
         {
             services.AddScoped<IAddExpendingService, AddExpendingService>();
         }
+
+        public void InjectProfiles()
+        {
+            var profiles = new ProfileMapping();
+        }
     }
 }

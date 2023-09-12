@@ -1,6 +1,5 @@
 ﻿using FinSys.IoC;
-using Microsoft.Extensions.DependencyInjection;
-using MediatR.Extensions.Microsoft.DependencyInjection;
+using MediatR;
 
 namespace FinSys
 {
@@ -16,7 +15,9 @@ namespace FinSys
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(cfg => {
+                cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+            });
 
             injection.InjectionDependencies(services);
             injection.InjectServices(services);
