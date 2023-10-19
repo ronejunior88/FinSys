@@ -5,5 +5,6 @@ namespace FinSys.Query.Interfaces
     public interface IGetExpendingService
     {
         Task<IEnumerable<Expending>> GetExpendingAsync();
+        Task<Expending> GetExpendingByIdAsync(Guid id);
     }
 }

@@ -27,6 +27,7 @@ namespace FinSys.IoC
         public void InjectServices(IServiceCollection services)
         {
             services.AddScoped<IAddExpendingService, AddExpendingService>();
+
             services.AddScoped<IGetExpendingService, GetExpendingService>();
         }
 

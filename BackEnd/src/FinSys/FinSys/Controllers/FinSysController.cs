@@ -31,6 +31,13 @@ namespace FinSys.Controllers
             return Ok(result);
         }
 
+        [HttpGet("Id")]
+        public async Task<IActionResult> Get(Guid id)
+        {
+            var result = await _getExpendingService.GetExpendingByIdAsync(id);
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]AddExpendingCommand request)
         {
