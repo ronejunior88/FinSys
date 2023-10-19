@@ -38,6 +38,13 @@ namespace FinSys.Controllers
             return Ok(result);
         }
 
+        [HttpGet("Value")]
+        public async Task<IActionResult> Get(double value)
+        {
+            var result = await _getExpendingService.GetExpendingByValueAsync(value);
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]AddExpendingCommand request)
         {

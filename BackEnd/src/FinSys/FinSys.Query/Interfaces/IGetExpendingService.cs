@@ -6,5 +6,6 @@ namespace FinSys.Query.Interfaces
     {
         Task<IEnumerable<Expending>> GetExpendingAsync();
         Task<Expending> GetExpendingByIdAsync(Guid id);
+        Task<IEnumerable<Expending>> GetExpendingByValueAsync(double value);
     }
 }

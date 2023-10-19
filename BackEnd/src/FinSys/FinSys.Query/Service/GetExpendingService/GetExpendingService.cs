@@ -3,6 +3,7 @@ using FinSys.Query.Interfaces;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Reflection.PortableExecutable;
 
 namespace FinSys.Query.Service.GetExpendingService
 {
@@ -81,6 +82,42 @@ namespace FinSys.Query.Service.GetExpendingService
                 connection.Close();
             }
             return expending;
+        }
+
+        public async Task<IEnumerable<Expending>> GetExpendingByValueAsync(double value)
+        {
+            _connection = _configuration.GetConnectionString("FinSys");
+
+            var expendingList = new List<Expending>();
+
+            using (SqlConnection connection = new SqlConnection(_connection))
+            {
+                connection.Open();
+
+                string sqlQuery = "SELECT [Id], [Value], [Description] FROM Expending WHERE [Value] = @Value";
+
+                using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
+                {
+                    cmd.Parameters.Add("@Value", SqlDbType.Float);
+                    cmd.Parameters["@Value"].Value = value;
+
+                    using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (reader.Read())
+                        {
+                            Expending expending = new Expending
+                            {
+                                Id = (Guid)reader["Id"],
+                                Value = (double)reader["Value"],
+                                Description = (string)reader["Description"]
+                            };
+                            expendingList.Add(expending);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return expendingList;
         }
     }
 }
