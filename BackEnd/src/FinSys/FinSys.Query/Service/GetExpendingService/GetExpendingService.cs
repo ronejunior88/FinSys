@@ -62,7 +62,7 @@ namespace FinSys.Query.Service.GetExpendingService
                 connection.Open();
 
                 string sqlQuery = "SELECT [Id], [Value], [Description] FROM Expending WHERE [id] = @Id";
-                
+
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
                 {
                     cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
@@ -78,6 +78,7 @@ namespace FinSys.Query.Service.GetExpendingService
                         }
                     }
                 }
+                connection.Close();
             }
             return expending;
         }
