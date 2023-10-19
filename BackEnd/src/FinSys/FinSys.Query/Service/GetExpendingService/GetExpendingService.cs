@@ -33,7 +33,7 @@ namespace FinSys.Query.Service.GetExpendingService
 
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
                 {
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
