@@ -25,31 +25,66 @@ namespace FinSys.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAll()
         {
-            var result = await _getExpendingService.GetExpendingAsync();
-            return Ok(result);
+            try
+            {
+                var result = await _getExpendingService.GetExpendingAsync();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Erro com busca de gastos: ", ex);
+            }
+            
         }
 
         [HttpGet("Id")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> GetById(Guid id)
         {
-            var result = await _getExpendingService.GetExpendingByIdAsync(id);
-            return Ok(result);
+            try
+            {
+                var result = await _getExpendingService.GetExpendingByIdAsync(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Erro com busca de gastos por Id: ", ex);
+            }
+            
         }
 
         [HttpGet("Value")]
-        public async Task<IActionResult> Get(double value)
+        public async Task<IActionResult> GetByValue(double value)
         {
-            var result = await _getExpendingService.GetExpendingByValueAsync(value);
-            return Ok(result);
+            try
+            {
+                var result = await _getExpendingService.GetExpendingByValueAsync(value);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Erro com busca de gastos por Valor: ", ex);
+            }
+            
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]AddExpendingCommand request)
         {
-            await _mediator.Send(request);
-            return Ok();
+            try
+            {
+                await _mediator.Send(request);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Erro ao inserir gastos: ", ex);
+            }       
         }
     }
 }
