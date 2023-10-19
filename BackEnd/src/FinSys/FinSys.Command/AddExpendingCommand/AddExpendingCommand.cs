@@ -1,9 +1,4 @@
-﻿using AutoMapper;
-using FinSys.Command.Domain;
-using FinSys.Service.Domain;
-using FinSys.Service.Interfaces;
-using MediatR;
-using Microsoft.Extensions.Configuration;
+﻿using MediatR;
 
 namespace FinSys.Command.AddExpendingCommand
 {

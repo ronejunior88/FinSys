@@ -1,4 +1,6 @@
 ﻿using FinSys.Command.AddExpendingCommand;
+using FinSys.Query.Interfaces;
+using FinSys.Query.Service.GetExpendingService;
 using FinSys.Service.Expendings.AddExpendingService;
 using FinSys.Service.Interfaces;
 using MediatR;
@@ -25,6 +27,7 @@ namespace FinSys.IoC
         public void InjectServices(IServiceCollection services)
         {
             services.AddScoped<IAddExpendingService, AddExpendingService>();
+            services.AddScoped<IGetExpendingService, GetExpendingService>();
         }
 
         public void InjectProfiles()
