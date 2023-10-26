@@ -2,8 +2,10 @@
 using FinSys.Command.AddExpendingCommand;
 using FinSys.Query.Domain;
 using FinSys.Query.Interfaces;
+using FinSys.Query.Queries.GetExpendingsAll;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 
 namespace FinSys.Controllers
 {
@@ -14,22 +16,22 @@ namespace FinSys.Controllers
         private IConfiguration _configuration;
         private IMapper _mapper;
         private IMediator _mediator;
-        private IGetExpendingService _getExpendingService;
+        private readonly GetExpendingsAllHandler _getExpendingsAll;
 
-        public FinSysController(IConfiguration configuration, IMapper mapper,IMediator mediator, IGetExpendingService getExpendingService)
+        public FinSysController(IConfiguration configuration, IMapper mapper,IMediator mediator, GetExpendingsAllHandler getExpendingsAll)
         {   
             _configuration = configuration;
             _mapper = mapper;
             _mediator = mediator;
-            _getExpendingService = getExpendingService;
+            _getExpendingsAll = getExpendingsAll;
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             try
             {
-                var result = await _getExpendingService.GetExpendingAsync();
+                var result = await _getExpendingsAll.Handle(new GetExpendingsAll(), cancellationToken);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -40,13 +42,14 @@ namespace FinSys.Controllers
             
         }
 
+
         [HttpGet("Id")]
         public async Task<IActionResult> GetById(Guid id)
         {
             try
             {
-                var result = await _getExpendingService.GetExpendingByIdAsync(id);
-                return Ok(result);
+                //var result = await _getExpendingService.GetExpendingByIdAsync(id);
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -61,8 +64,8 @@ namespace FinSys.Controllers
         {
             try
             {
-                var result = await _getExpendingService.GetExpendingByValueAsync(value);
-                return Ok(result);
+                //var result = await _getExpendingService.GetExpendingByValueAsync(value);
+                return Ok();
             }
             catch (Exception ex)
             {

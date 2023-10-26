@@ -5,22 +5,23 @@ namespace FinSys
 {
     public class Startup
     {
-        public IConfiguration _configuration { get; set; }
+        public static IConfiguration? _configuration { get; set; }
+        public static IServiceCollection? serviceCollection;
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
         public Injection injection = new Injection();
-
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMediatR(cfg => {
+
+            services.AddMediatR(cfg =>
+            {
                 cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
             });
 
             injection.InjectionDependencies(services);
-            injection.InjectServices(services);
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -49,7 +50,7 @@ namespace FinSys
                 endpoints.MapControllers();
             });
 
-           
+
 
 
         }

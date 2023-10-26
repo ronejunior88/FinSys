@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FinSys.Command.AddExpendingCommand;
+using FinSys.Query.Queries.GetExpendingsAll;
 using FinSys.Service.Domain;
 
 namespace FinSys.IoC

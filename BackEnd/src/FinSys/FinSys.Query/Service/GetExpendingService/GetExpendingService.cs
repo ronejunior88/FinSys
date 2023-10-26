@@ -1,5 +1,6 @@
 ﻿using FinSys.Query.Domain;
 using FinSys.Query.Interfaces;
+using FinSys.Query.Queries.GetExpendingsAll;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -20,11 +21,11 @@ namespace FinSys.Query.Service.GetExpendingService
             _configuration = configuration;
         }
 
-        public async Task<IEnumerable<Expending>> GetExpendingAsync()
+        public async Task<IEnumerable<GetExpendingsAllResponse>> GetExpendingsAllAsync()
         {
             _connection = _configuration.GetConnectionString("FinSys");
 
-            var expendingList = new List<Expending>();
+            var expendingList = new List<GetExpendingsAllResponse>();
 
             using (SqlConnection connection = new SqlConnection(_connection))
             {
@@ -38,7 +39,7 @@ namespace FinSys.Query.Service.GetExpendingService
                     {
                         while (reader.Read())
                         {
-                            Expending expending = new Expending
+                            GetExpendingsAllResponse expending = new GetExpendingsAllResponse
                             {
                                 Id = (Guid)reader["Id"],
                                 Value = (double)reader["Value"],

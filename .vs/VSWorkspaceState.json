@@ -2,8 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\BackEnd",
+    "\\BackEnd\\Scripts",
+    "\\BackEnd\\Scripts\\1.0.0",
     "\\BackEnd\\src",
     "\\BackEnd\\src\\FinSys",
+    "\\BackEnd\\src\\FinSys\\FinSys.Service",
+    "\\BackEnd\\src\\FinSys\\FinSys.Service\\Expendings",
+    "\\BackEnd\\src\\FinSys\\FinSys.Service\\Expendings\\AddExpendingService",
     "\\FrontEnd"
   ],
   "SelectedNode": "\\BackEnd\\src\\FinSys\\FinSys.sln",
