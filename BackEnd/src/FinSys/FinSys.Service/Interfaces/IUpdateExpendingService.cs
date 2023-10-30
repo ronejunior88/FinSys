@@ -4,6 +4,6 @@ namespace FinSys.Service.Interfaces
 {
     public interface IUpdateExpendingService
     {
-        Task<ExpendingDTO> AddExpending(ExpendingDTO expending);
+        Task<ExpendingDTO> UpdateExpending(ExpendingDTO expending);
     }
 }

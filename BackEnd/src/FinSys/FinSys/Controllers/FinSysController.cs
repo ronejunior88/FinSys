@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FinSys.Command.AddExpendingCommand;
+using FinSys.Command.UpdateExpendingCommand;
 using FinSys.Query.Queries.GetExpendingByValue;
 using FinSys.Query.Queries.GetExpendingsAll;
 using FinSys.Query.Queries.GetExpendingsById;
@@ -15,13 +16,19 @@ namespace FinSys.Controllers
         private IConfiguration _configuration;
         private IMapper _mapper;
         private IMediator _mediator;
+
+        private readonly AddExpendingCommandHandler _addExpendingCommandHandler;
+        private readonly UpdateExpendingCommandHandler _updateExpendingCommandHandler;
+
         private readonly GetExpendingsAllHandler _getExpendingsAll;
         private readonly GetExpendingsByIdHandler _getExpendingsById;
         private readonly GetExpendingByValueHandler _getExpendingByValue;
 
         public FinSysController(IConfiguration configuration, 
                                        IMapper mapper,
-                                     IMediator mediator, 
+                                     IMediator mediator,
+                    AddExpendingCommandHandler addExpendingCommandHandler,
+                 UpdateExpendingCommandHandler updateExpendingCommandHandler,
                        GetExpendingsAllHandler getExpendingsAll, 
                       GetExpendingsByIdHandler getExpendingsById, 
                     GetExpendingByValueHandler getExpendingByValue)
@@ -29,6 +36,8 @@ namespace FinSys.Controllers
             _configuration = configuration;
             _mapper = mapper;
             _mediator = mediator;
+            _addExpendingCommandHandler = addExpendingCommandHandler;
+            _updateExpendingCommandHandler = updateExpendingCommandHandler;
             _getExpendingsAll = getExpendingsAll;
             _getExpendingsById = getExpendingsById;
             _getExpendingByValue = getExpendingByValue;
@@ -84,11 +93,11 @@ namespace FinSys.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]AddExpendingCommand request)
+        public async Task<IActionResult> Post([FromBody]AddExpendingCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                await _mediator.Send(request);
+                await _addExpendingCommandHandler.Handle(request, cancellationToken);
                 return Ok();
             }
             catch (Exception ex)
@@ -96,6 +105,20 @@ namespace FinSys.Controllers
 
                 throw new Exception("Erro ao inserir gastos: ", ex);
             }       
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] UpdateExpendingCommand request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                await _updateExpendingCommandHandler.Handle(request, cancellationToken);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao atualizar os gastos: ", ex);
+            }
         }
     }
 }
