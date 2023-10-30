@@ -1,6 +1,7 @@
 ﻿using FinSys.Command.AddExpendingCommand;
 using FinSys.Query.Interfaces;
 using FinSys.Query.Queries.GetExpendingsAll;
+using FinSys.Query.Queries.GetExpendingsById;
 using FinSys.Query.Service.GetExpendingService;
 using FinSys.Service.Expendings.AddExpendingService;
 using FinSys.Service.Interfaces;
@@ -42,6 +43,7 @@ namespace FinSys.IoC
         public void InjectHandler(IServiceCollection services)
         {
             services.AddTransient<GetExpendingsAllHandler>();
+            services.AddTransient<GetExpendingsByIdHandler>();
         }
 
         public void InjectProfiles()

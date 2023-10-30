@@ -1,7 +1,9 @@
 ﻿using FinSys.Query.Domain;
 using FinSys.Query.Interfaces;
 using FinSys.Query.Queries.GetExpendingsAll;
+using FinSys.Query.Queries.GetExpendingsById;
 using Microsoft.Extensions.Configuration;
+using System.ComponentModel.Design;
 using System.Data;
 using System.Data.SqlClient;
 using System.Reflection.PortableExecutable;
@@ -54,10 +56,11 @@ namespace FinSys.Query.Service.GetExpendingService
             return expendingList;
         }
 
-        public async Task<Expending> GetExpendingByIdAsync(Guid id)
+        public async Task<GetExpendingsByIdResponse> GetExpendingByIdAsync(GetExpendingsById _command)
         {
             _connection = _configuration.GetConnectionString("FinSys");
-            Expending expending = new Expending();
+
+            GetExpendingsByIdResponse expending = new GetExpendingsByIdResponse();
 
             using (SqlConnection connection = new SqlConnection(_connection))
             {
@@ -68,7 +71,7 @@ namespace FinSys.Query.Service.GetExpendingService
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
                 {
                     cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
-                    cmd.Parameters["@Id"].Value = id;
+                    cmd.Parameters["@Id"].Value = _command.Id;
 
                     using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                     {
