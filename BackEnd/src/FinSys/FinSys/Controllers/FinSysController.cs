@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FinSys.Command.AddExpendingCommand;
+using FinSys.Query.Queries.GetExpendingByValue;
 using FinSys.Query.Queries.GetExpendingsAll;
 using FinSys.Query.Queries.GetExpendingsById;
 using MediatR;
@@ -16,14 +17,21 @@ namespace FinSys.Controllers
         private IMediator _mediator;
         private readonly GetExpendingsAllHandler _getExpendingsAll;
         private readonly GetExpendingsByIdHandler _getExpendingsById;
+        private readonly GetExpendingByValueHandler _getExpendingByValue;
 
-        public FinSysController(IConfiguration configuration, IMapper mapper,IMediator mediator, GetExpendingsAllHandler getExpendingsAll, GetExpendingsByIdHandler getExpendingsById)
+        public FinSysController(IConfiguration configuration, 
+                                       IMapper mapper,
+                                     IMediator mediator, 
+                       GetExpendingsAllHandler getExpendingsAll, 
+                      GetExpendingsByIdHandler getExpendingsById, 
+                    GetExpendingByValueHandler getExpendingByValue)
         {   
             _configuration = configuration;
             _mapper = mapper;
             _mediator = mediator;
             _getExpendingsAll = getExpendingsAll;
             _getExpendingsById = getExpendingsById;
+            _getExpendingByValue = getExpendingByValue;
         }
 
         [HttpGet()]
@@ -60,12 +68,12 @@ namespace FinSys.Controllers
         }
 
         [HttpGet("Value")]
-        public async Task<IActionResult> GetByValue(double value)
+        public async Task<IActionResult> GetByValue(double value, CancellationToken cancellationToken)
         {
             try
             {
-                //var result = await _getExpendingService.GetExpendingByValueAsync(value);
-                return Ok();
+                var result = await _getExpendingByValue.Handle(new GetExpendingByValue(value), cancellationToken);
+                return Ok(result);
             }
             catch (Exception ex)
             {

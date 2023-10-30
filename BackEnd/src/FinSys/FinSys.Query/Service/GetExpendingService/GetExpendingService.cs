@@ -1,12 +1,10 @@
-﻿using FinSys.Query.Domain;
-using FinSys.Query.Interfaces;
+﻿using FinSys.Query.Interfaces;
+using FinSys.Query.Queries.GetExpendingByValue;
 using FinSys.Query.Queries.GetExpendingsAll;
 using FinSys.Query.Queries.GetExpendingsById;
 using Microsoft.Extensions.Configuration;
-using System.ComponentModel.Design;
 using System.Data;
 using System.Data.SqlClient;
-using System.Reflection.PortableExecutable;
 
 namespace FinSys.Query.Service.GetExpendingService
 {
@@ -56,7 +54,7 @@ namespace FinSys.Query.Service.GetExpendingService
             return expendingList;
         }
 
-        public async Task<GetExpendingsByIdResponse> GetExpendingByIdAsync(GetExpendingsById _command)
+        public async Task<GetExpendingsByIdResponse> GetExpendingByIdAsync(GetExpendingsById _request)
         {
             _connection = _configuration.GetConnectionString("FinSys");
 
@@ -71,7 +69,7 @@ namespace FinSys.Query.Service.GetExpendingService
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
                 {
                     cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
-                    cmd.Parameters["@Id"].Value = _command.Id;
+                    cmd.Parameters["@Id"].Value = _request.Id;
 
                     using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                     {
@@ -88,11 +86,11 @@ namespace FinSys.Query.Service.GetExpendingService
             return expending;
         }
 
-        public async Task<IEnumerable<Expending>> GetExpendingByValueAsync(double value)
+        public async Task<IEnumerable<GetExpendingByValueResponse>> GetExpendingByValueAsync(GetExpendingByValue _request)
         {
             _connection = _configuration.GetConnectionString("FinSys");
 
-            var expendingList = new List<Expending>();
+            var expendingList = new List<GetExpendingByValueResponse>();
 
             using (SqlConnection connection = new SqlConnection(_connection))
             {
@@ -103,13 +101,13 @@ namespace FinSys.Query.Service.GetExpendingService
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
                 {
                     cmd.Parameters.Add("@Value", SqlDbType.Float);
-                    cmd.Parameters["@Value"].Value = value;
+                    cmd.Parameters["@Value"].Value = _request.Value;
 
                     using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                     {
                         while (reader.Read())
                         {
-                            Expending expending = new Expending
+                            GetExpendingByValueResponse expending = new GetExpendingByValueResponse
                             {
                                 Id = (Guid)reader["Id"],
                                 Value = (double)reader["Value"],
