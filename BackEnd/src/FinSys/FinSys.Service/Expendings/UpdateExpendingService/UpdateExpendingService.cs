@@ -1,13 +1,8 @@
 ﻿using FinSys.Service.Domain;
 using FinSys.Service.Interfaces;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinSys.Service.Expendings.UpdateExpendingService
 {
@@ -49,7 +44,6 @@ namespace FinSys.Service.Expendings.UpdateExpendingService
                     cmd.Parameters["@Inative"].Value = expending.Inative;
 
                     rowsAffected = cmd.ExecuteNonQueryAsync().Result;
-
                 }
 
                 connection.Close();
