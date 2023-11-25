@@ -27,7 +27,7 @@ namespace FinSys.Service.Expendings.AddExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = "INSERT INTO Expending ([Id], [Value], [Description]) VALUES (@Id, @Value, @Description)";
+                string sqlQuery = "INSERT INTO Expending ([Id], [Value], [Description], [Inative]) VALUES (@Id, @Value, @Description, @Inative)";
 
                 using (SqlCommand cmd = new SqlCommand(sqlQuery,connection))
                 {
@@ -39,6 +39,9 @@ namespace FinSys.Service.Expendings.AddExpendingService
 
                     cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 100);
                     cmd.Parameters["@Description"].Value = expending.Description;
+
+                    cmd.Parameters.Add("@Inative", SqlDbType.Bit, 100);
+                    cmd.Parameters["@Inative"].Value = expending.Inative;
 
                     int rowsAffected = cmd.ExecuteNonQueryAsync().Result;
                 }

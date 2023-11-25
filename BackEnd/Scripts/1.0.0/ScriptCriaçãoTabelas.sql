@@ -10,3 +10,13 @@ CREATE TABLE Expending (
 [Value] FLOAT NOT NULL,
 [Description] VARCHAR(150) NOT NULL
 )
+
+GO
+
+IF EXISTS(SELECT 'Expending' FROM sys.tables)
+ALTER TABLE Expending
+ADD [Inative] BIT NOT NULL;
+
+GO
+
+ 

@@ -6,11 +6,9 @@
     "\\BackEnd\\Scripts\\1.0.0",
     "\\BackEnd\\src",
     "\\BackEnd\\src\\FinSys",
-    "\\BackEnd\\src\\FinSys\\FinSys.Service",
-    "\\BackEnd\\src\\FinSys\\FinSys.Service\\Expendings",
-    "\\BackEnd\\src\\FinSys\\FinSys.Service\\Expendings\\AddExpendingService",
-    "\\FrontEnd"
+    "\\BackEnd\\src\\FinSys\\FinSys",
+    "\\BackEnd\\src\\FinSys\\FinSys\\Controllers"
   ],
-  "SelectedNode": "\\BackEnd\\src\\FinSys\\FinSys.sln",
+  "SelectedNode": "\\BackEnd\\src\\FinSys\\FinSys\\Controllers\\FinSysController.cs",
   "PreviewInSolutionExplorer": false
 }
