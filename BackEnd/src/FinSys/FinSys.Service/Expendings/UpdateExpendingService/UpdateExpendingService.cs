@@ -32,7 +32,7 @@ namespace FinSys.Service.Expendings.UpdateExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = "UPDATE Expending SET [Value] = @Value, [Description] = @Description WHERE [Id] = @Id";
+                string sqlQuery = "UPDATE Expending SET [Value] = @Value, [Description] = @Description, [Inative]= @Inative WHERE [Id] = @Id";
 
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
                 {
@@ -44,6 +44,9 @@ namespace FinSys.Service.Expendings.UpdateExpendingService
 
                     cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 100);
                     cmd.Parameters["@Description"].Value = expending.Description;
+
+                    cmd.Parameters.Add("@Inative", SqlDbType.NVarChar, 100);
+                    cmd.Parameters["@Inative"].Value = expending.Inative;
 
                     rowsAffected = cmd.ExecuteNonQueryAsync().Result;
 
