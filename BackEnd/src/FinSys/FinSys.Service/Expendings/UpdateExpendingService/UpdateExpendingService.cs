@@ -40,7 +40,7 @@ namespace FinSys.Service.Expendings.UpdateExpendingService
                     cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 100);
                     cmd.Parameters["@Description"].Value = expending.Description;
 
-                    cmd.Parameters.Add("@Inative", SqlDbType.NVarChar, 100);
+                    cmd.Parameters.Add("@Inative", SqlDbType.Bit, 100);
                     cmd.Parameters["@Inative"].Value = expending.Inative;
 
                     rowsAffected = cmd.ExecuteNonQueryAsync().Result;

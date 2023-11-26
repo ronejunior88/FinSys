@@ -14,6 +14,6 @@ namespace FinSys.Query.Queries.GetExpendingByValue
         public Guid Id { get; set; }
         public double Value { get; set; }
         public string Description { get; set; }
-        public int Inative { get; set; }
+        public bool Inative { get; set; }
     }
 }

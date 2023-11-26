@@ -31,7 +31,7 @@ namespace FinSys.Query.Service.GetExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = "SELECT [Id], [Value], [Description] FROM Expending";
+                string sqlQuery = "SELECT [Id], [Value], [Description], [Inative] FROM Expending";
 
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
                 {
@@ -43,7 +43,8 @@ namespace FinSys.Query.Service.GetExpendingService
                             {
                                 Id = (Guid)reader["Id"],
                                 Value = (double)reader["Value"],
-                                Description = (string)reader["Description"]
+                                Description = (string)reader["Description"],
+                                Inative = (bool)reader["Inative"]
                             };
                             expendingList.Add(expending);
                         }
@@ -64,7 +65,7 @@ namespace FinSys.Query.Service.GetExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = "SELECT [Id], [Value], [Description] FROM Expending WHERE [id] = @Id";
+                string sqlQuery = "SELECT [Id], [Value], [Description], [Inative] FROM Expending WHERE [id] = @Id";
 
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
                 {
@@ -78,6 +79,7 @@ namespace FinSys.Query.Service.GetExpendingService
                             expending.Id = (Guid)reader["Id"];
                             expending.Value = (double)reader["Value"];
                             expending.Description = (string)reader["Description"];
+                            expending.Inative = (bool)reader["Inative"];
                         }
                     }
                 }
@@ -96,7 +98,7 @@ namespace FinSys.Query.Service.GetExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = "SELECT [Id], [Value], [Description] FROM Expending WHERE [Value] = @Value";
+                string sqlQuery = "SELECT [Id], [Value], [Description], [Inative] FROM Expending WHERE [Value] = @Value";
 
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
                 {
@@ -111,7 +113,8 @@ namespace FinSys.Query.Service.GetExpendingService
                             {
                                 Id = (Guid)reader["Id"],
                                 Value = (double)reader["Value"],
-                                Description = (string)reader["Description"]
+                                Description = (string)reader["Description"],
+                                Inative = (bool)reader["Inative"]
                             };
                             expendingList.Add(expending);
                         }
