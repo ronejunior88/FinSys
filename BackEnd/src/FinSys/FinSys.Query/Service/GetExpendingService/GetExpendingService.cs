@@ -42,7 +42,7 @@ namespace FinSys.Query.Service.GetExpendingService
                             GetExpendingsAllResponse expending = new GetExpendingsAllResponse
                             {
                                 Id = (Guid)reader["Id"],
-                                Value = (double)reader["Value"],
+                                Value = (decimal)reader["Value"],
                                 Description = (string)reader["Description"],
                                 Inative = (bool)reader["Inative"]
                             };
@@ -77,7 +77,7 @@ namespace FinSys.Query.Service.GetExpendingService
                         while (reader.Read())
                         {
                             expending.Id = (Guid)reader["Id"];
-                            expending.Value = (double)reader["Value"];
+                            expending.Value = (decimal)reader["Value"];
                             expending.Description = (string)reader["Description"];
                             expending.Inative = (bool)reader["Inative"];
                         }
@@ -112,7 +112,7 @@ namespace FinSys.Query.Service.GetExpendingService
                             GetExpendingByValueResponse expending = new GetExpendingByValueResponse
                             {
                                 Id = (Guid)reader["Id"],
-                                Value = (double)reader["Value"],
+                                Value = (decimal)reader["Value"],
                                 Description = (string)reader["Description"],
                                 Inative = (bool)reader["Inative"]
                             };

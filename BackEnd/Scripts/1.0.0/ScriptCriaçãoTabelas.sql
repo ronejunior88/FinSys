@@ -6,7 +6,7 @@ GO
 IF NOT EXISTS(SELECT 'Expending' FROM sys.tables)
 CREATE TABLE Expending (
 [Id] uniqueidentifier PRIMARY KEY NOT NULL,
-[Value] FLOAT NOT NULL,
+[Value] decimal(18,2) NOT NULL,
 [Description] VARCHAR(150) NOT NULL
 )
 GO

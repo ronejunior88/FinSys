@@ -34,7 +34,7 @@ namespace FinSys.Service.Expendings.AddExpendingService
                     cmd.Parameters.Add("@Id",SqlDbType.UniqueIdentifier);
                     cmd.Parameters["@Id"].Value = expending.Id;
 
-                    cmd.Parameters.Add("@Value", SqlDbType.Real);
+                    cmd.Parameters.Add("@Value", SqlDbType.Decimal);
                     cmd.Parameters["@Value"].Value = expending.Value;
 
                     cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 100);
