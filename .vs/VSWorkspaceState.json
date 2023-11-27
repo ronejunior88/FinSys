@@ -2,13 +2,16 @@
   "ExpandedNodes": [
     "",
     "\\BackEnd",
-    "\\BackEnd\\Scripts",
-    "\\BackEnd\\Scripts\\1.0.0",
     "\\BackEnd\\src",
     "\\BackEnd\\src\\FinSys",
-    "\\BackEnd\\src\\FinSys\\FinSys",
-    "\\BackEnd\\src\\FinSys\\FinSys\\Controllers"
+    "\\BackEnd\\src\\FinSys\\FinSys.Query",
+    "\\BackEnd\\src\\FinSys\\FinSys.Query\\Service",
+    "\\BackEnd\\src\\FinSys\\FinSys.Query\\Service\\GetExpendingService",
+    "\\BackEnd\\src\\FinSys\\FinSys.Service",
+    "\\BackEnd\\src\\FinSys\\FinSys.Service\\Domain",
+    "\\BackEnd\\src\\FinSys\\FinSys.Service\\Expendings",
+    "\\BackEnd\\src\\FinSys\\FinSys.Service\\Expendings\\AddExpendingService"
   ],
-  "SelectedNode": "\\BackEnd\\src\\FinSys\\FinSys\\Controllers\\FinSysController.cs",
+  "SelectedNode": "\\BackEnd\\src\\FinSys\\FinSys.sln",
   "PreviewInSolutionExplorer": false
 }

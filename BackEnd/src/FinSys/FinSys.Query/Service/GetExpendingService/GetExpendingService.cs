@@ -31,7 +31,7 @@ namespace FinSys.Query.Service.GetExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = "SELECT [Id], [Value], [Description], [Inative] FROM Expending";
+                string sqlQuery = "SELECT [Id], [Value], [Description], [Inative], [DateExpiration], [DateRelease], [DatePayment] FROM Expending";
 
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
                 {
@@ -44,7 +44,10 @@ namespace FinSys.Query.Service.GetExpendingService
                                 Id = (Guid)reader["Id"],
                                 Value = (decimal)reader["Value"],
                                 Description = (string)reader["Description"],
-                                Inative = (bool)reader["Inative"]
+                                Inative = (bool)reader["Inative"],
+                                DateExpiration = (DateTime)reader["DateExpiration"],
+                                DateRelease = (DateTime)reader["DateRelease"],
+                                DatePayment = reader["DatePayment"] == DBNull.Value ? null : (DateTime)reader["DatePayment"]
                             };
                             expendingList.Add(expending);
                         }
@@ -65,7 +68,7 @@ namespace FinSys.Query.Service.GetExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = "SELECT [Id], [Value], [Description], [Inative] FROM Expending WHERE [id] = @Id";
+                string sqlQuery = "SELECT [Id], [Value], [Description], [Inative], [DateExpiration], [DateRelease], [DatePayment] FROM Expending WHERE [id] = @Id";
 
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
                 {
@@ -80,6 +83,9 @@ namespace FinSys.Query.Service.GetExpendingService
                             expending.Value = (decimal)reader["Value"];
                             expending.Description = (string)reader["Description"];
                             expending.Inative = (bool)reader["Inative"];
+                            expending.DateExpiration = (DateTime)reader["DateExpiration"];
+                            expending.DateRelease = (DateTime)reader["DateRelease"];
+                            expending.DatePayment = reader["DatePayment"] == DBNull.Value ? null : (DateTime)reader["DatePayment"];
                         }
                     }
                 }
@@ -98,7 +104,7 @@ namespace FinSys.Query.Service.GetExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = "SELECT [Id], [Value], [Description], [Inative] FROM Expending WHERE [Value] = @Value";
+                string sqlQuery = "SELECT [Id], [Value], [Description], [Inative], [DateExpiration], [DateRelease], [DatePayment] FROM Expending WHERE [Value] = @Value";
 
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
                 {
@@ -114,7 +120,10 @@ namespace FinSys.Query.Service.GetExpendingService
                                 Id = (Guid)reader["Id"],
                                 Value = (decimal)reader["Value"],
                                 Description = (string)reader["Description"],
-                                Inative = (bool)reader["Inative"]
+                                Inative = (bool)reader["Inative"],
+                                DateExpiration = (DateTime)reader["DateExpiration"],
+                                DateRelease = (DateTime)reader["DateRelease"],
+                                DatePayment = reader["DatePayment"] == DBNull.Value ? null : (DateTime)reader["DatePayment"]
                             };
                             expendingList.Add(expending);
                         }

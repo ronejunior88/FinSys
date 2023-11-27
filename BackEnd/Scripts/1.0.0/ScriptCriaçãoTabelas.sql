@@ -16,4 +16,19 @@ ALTER TABLE Expending
 ADD [Inative] BIT NOT NULL;
 GO
 
+IF EXISTS(SELECT 'Expending' FROM sys.tables)
+ALTER TABLE Expending
+ADD [DateExpiration] DATETIME NOT NULL;
+GO
+
+IF EXISTS(SELECT 'Expending' FROM sys.tables)
+ALTER TABLE Expending
+ADD [DateRelease] DATETIME NOT NULL;
+GO
+
+IF EXISTS(SELECT 'Expending' FROM sys.tables)
+ALTER TABLE Expending
+ADD [DatePayment] DATETIME;
+GO
+
  

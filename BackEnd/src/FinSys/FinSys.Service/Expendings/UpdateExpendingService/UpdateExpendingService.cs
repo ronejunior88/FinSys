@@ -27,7 +27,7 @@ namespace FinSys.Service.Expendings.UpdateExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = "UPDATE Expending SET [Value] = @Value, [Description] = @Description, [Inative]= @Inative WHERE [Id] = @Id";
+                string sqlQuery = "UPDATE Expending SET [Value] = @Value, [Description] = @Description, [Inative]= @Inative, [DateExpiration]= @DateExpiration, [DateRelease]= @DateRelease, [DatePayment]= @DatePayment WHERE [Id] = @Id";
 
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
                 {
@@ -42,6 +42,15 @@ namespace FinSys.Service.Expendings.UpdateExpendingService
 
                     cmd.Parameters.Add("@Inative", SqlDbType.Bit, 100);
                     cmd.Parameters["@Inative"].Value = expending.Inative;
+
+                    cmd.Parameters.Add("@DateExpiration", SqlDbType.DateTime);
+                    cmd.Parameters["@DateExpiration"].Value = expending.DateExpiration;
+
+                    cmd.Parameters.Add("@DateRelease", SqlDbType.DateTime);
+                    cmd.Parameters["@DateRelease"].Value = expending.DateRelease;
+
+                    cmd.Parameters.Add("@DatePayment", SqlDbType.DateTime);
+                    cmd.Parameters["@DatePayment"].Value = expending.DatePayment == null ? DBNull.Value : expending.DatePayment; ;
 
                     rowsAffected = cmd.ExecuteNonQueryAsync().Result;
                 }
