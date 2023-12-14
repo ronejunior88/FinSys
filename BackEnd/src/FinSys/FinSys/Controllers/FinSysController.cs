@@ -106,7 +106,7 @@ namespace FinSys.Controllers
                 {
                     return BadRequest("O Arquivo não pode estar vazio ou Nulo.");
                 }
-
+                
                 var fileReader = new UploadExpending(file);
                 var uploadCommand = fileReader.GetFileAsync();
 

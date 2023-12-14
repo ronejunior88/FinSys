@@ -20,33 +20,33 @@ namespace FinSys.Uploads
         public UploadExpendingCommand GetFileAsync()
         {
             UploadExpendingCommand file = new UploadExpendingCommand();
-            file.Name = File.Name;
-            file.NumberLines = File.Length;
+            var linhas = File.Headers.Count();
+
+            file.Name = File.FileName;
+            file.NumberLines = File.Headers.Count();
 
             using (var reader = new StreamReader(File.OpenReadStream(), Encoding.UTF8))
             {
-                var conteudoArquivo =  reader.ReadToEnd();
+                var conteudoArquivo = reader.ReadToEnd();
 
-
-                foreach (var item in conteudoArquivo)
+                while (linhas != 0)
                 {
-                    var valores = conteudoArquivo.Split(',');
+                    var leitura = conteudoArquivo.Split(',');
 
-                    if (valores.Length == 7)
+                    var expending = new Expending
                     {
-                        var expending = new Expending
-                        {
-                            Value = double.Parse(valores[0]),
-                            Description = valores[1],
-                            Inative = bool.Parse(valores[2]),
-                            DateExpiration = DateTime.Parse(valores[3]),
-                            DateRelease = DateTime.Parse(valores[4]),
-                            DatePayment = DateTime.Parse(valores[5]),
-                        };
-                        file.Expendings.Add(expending);
-                    }
+                        Value = double.Parse(leitura[0]),
+                        Description = leitura[1],
+                        Inative = bool.Parse(leitura[2]),
+                        DateExpiration = DateTime.Parse(leitura[3]),
+                        DateRelease = DateTime.Parse(leitura[4]),
+                        DatePayment = DateTime.Parse(leitura[5]),
+                    };
+                    linhas--;
+                    file.Expendings.Add(expending);
                 }
-            }           
+
+            }
 
             file.DateUpload = DateTime.UtcNow;
 
