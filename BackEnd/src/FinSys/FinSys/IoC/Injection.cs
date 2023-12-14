@@ -1,5 +1,6 @@
 ﻿using FinSys.Command.AddExpendingCommand;
 using FinSys.Command.UpdateExpendingCommand;
+using FinSys.Command.UploadExpendingCommand;
 using FinSys.Query.Interfaces;
 using FinSys.Query.Queries.GetExpendingByValue;
 using FinSys.Query.Queries.GetExpendingsAll;
@@ -36,6 +37,7 @@ namespace FinSys.IoC
         {
             services.AddTransient<IRequestHandler<AddExpendingCommand>, AddExpendingCommandHandler>();
             services.AddTransient<IRequestHandler<UpdateExpendingCommand>, UpdateExpendingCommandHandler>();
+            services.AddTransient<IRequestHandler<UploadExpendingCommand>, UploadExpendingCommandHandler>();
         }
 
         public void InjectServices(IServiceCollection services)
@@ -49,6 +51,7 @@ namespace FinSys.IoC
         {
             services.AddTransient<AddExpendingCommandHandler>();
             services.AddTransient<UpdateExpendingCommandHandler>();
+            services.AddTransient<UploadExpendingCommandHandler>();
 
             services.AddTransient<GetExpendingsAllHandler>();
             services.AddTransient<GetExpendingsByIdHandler>();

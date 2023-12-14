@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using FinSys.Command.AddExpendingCommand;
+using FinSys.Command.Domain;
 using FinSys.Command.UpdateExpendingCommand;
-using FinSys.Query.Queries.GetExpendingsAll;
+using FinSys.Command.UploadExpendingCommand;
 using FinSys.Service.Domain;
 
 namespace FinSys.IoC
@@ -12,6 +13,7 @@ namespace FinSys.IoC
         {
             CreateMap<AddExpendingCommand, ExpendingDTO>().ReverseMap();
             CreateMap<UpdateExpendingCommand, ExpendingDTO>().ReverseMap();
+            CreateMap<UploadExpendingCommand, Expending>().ReverseMap();
         }
     }
 }

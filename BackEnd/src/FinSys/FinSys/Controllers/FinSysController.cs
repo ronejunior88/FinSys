@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using FinSys.Command.AddExpendingCommand;
 using FinSys.Command.UpdateExpendingCommand;
+using FinSys.Command.UploadExpendingCommand;
 using FinSys.Query.Queries.GetExpendingByValue;
 using FinSys.Query.Queries.GetExpendingsAll;
 using FinSys.Query.Queries.GetExpendingsById;
+using FinSys.Uploads;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +21,7 @@ namespace FinSys.Controllers
 
         private readonly AddExpendingCommandHandler _addExpendingCommandHandler;
         private readonly UpdateExpendingCommandHandler _updateExpendingCommandHandler;
+        private readonly UploadExpendingCommandHandler _uploadExpendingCommandHandler;
 
         private readonly GetExpendingsAllHandler _getExpendingsAll;
         private readonly GetExpendingsByIdHandler _getExpendingsById;
@@ -29,6 +32,7 @@ namespace FinSys.Controllers
                                      IMediator mediator,
                     AddExpendingCommandHandler addExpendingCommandHandler,
                  UpdateExpendingCommandHandler updateExpendingCommandHandler,
+                 UploadExpendingCommandHandler uploadExpendingCommandHandler,
                        GetExpendingsAllHandler getExpendingsAll, 
                       GetExpendingsByIdHandler getExpendingsById, 
                     GetExpendingByValueHandler getExpendingByValue)
@@ -38,6 +42,7 @@ namespace FinSys.Controllers
             _mediator = mediator;
             _addExpendingCommandHandler = addExpendingCommandHandler;
             _updateExpendingCommandHandler = updateExpendingCommandHandler;
+            _uploadExpendingCommandHandler = uploadExpendingCommandHandler;
             _getExpendingsAll = getExpendingsAll;
             _getExpendingsById = getExpendingsById;
             _getExpendingByValue = getExpendingByValue;
@@ -90,6 +95,29 @@ namespace FinSys.Controllers
                 throw new Exception("Erro com busca de gastos por Valor: ", ex);
             }
             
+        }
+
+        [HttpPost("Upload")]
+        public async Task<IActionResult> Upload(IFormFile file, CancellationToken cancellationToken) 
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(file.ToString()))
+                {
+                    return BadRequest("O Arquivo não pode estar vazio ou Nulo.");
+                }
+
+                var fileReader = new UploadExpending(file);
+                var uploadCommand = fileReader.GetFileAsync();
+
+                await _uploadExpendingCommandHandler.Handle(uploadCommand, cancellationToken);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Erro ao carregar Arquivo: ", ex);
+            }
         }
 
         [HttpPost]
