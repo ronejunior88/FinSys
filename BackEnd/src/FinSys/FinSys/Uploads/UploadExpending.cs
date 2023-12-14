@@ -23,7 +23,7 @@ namespace FinSys.Uploads
             var linhas = File.Headers.Count();
 
             file.Name = File.FileName;
-            file.NumberLines = File.Headers.Count();
+            file.NumberLines = linhas;
 
             using (var reader = new StreamReader(File.OpenReadStream(), Encoding.UTF8))
             {
