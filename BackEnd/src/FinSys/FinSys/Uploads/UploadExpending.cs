@@ -29,7 +29,7 @@ namespace FinSys.Uploads
                 string linha;
                 while ((linha = reader.ReadLine()) != null)
                 {
-                    file.Expendings.Add(ConverterLinhaParaObjeto(linha));
+                    file.Expendings.Add(ConvertLineForObject(linha));
                 }                              
             }
 
@@ -38,7 +38,7 @@ namespace FinSys.Uploads
             return file;
         }
 
-        static Expending ConverterLinhaParaObjeto(string linha)
+        static Expending ConvertLineForObject(string linha)
         {
             string[] colunas = linha.Split(',');
             return new Expending
