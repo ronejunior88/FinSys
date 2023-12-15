@@ -14,6 +14,7 @@ namespace FinSys.IoC
             CreateMap<AddExpendingCommand, ExpendingDTO>().ReverseMap();
             CreateMap<UpdateExpendingCommand, ExpendingDTO>().ReverseMap();
             CreateMap<UploadExpendingCommand, Expending>().ReverseMap();
+            CreateMap<Expending, ExpendingDTO>().ReverseMap();
         }
     }
 }

@@ -20,37 +20,36 @@ namespace FinSys.Uploads
         public UploadExpendingCommand GetFileAsync()
         {
             UploadExpendingCommand file = new UploadExpendingCommand();
-            var linhas = File.Headers.Count();
 
             file.Name = File.FileName;
-            file.NumberLines = linhas;
+            file.NumberLines = File.Headers.Count();
 
             using (var reader = new StreamReader(File.OpenReadStream(), Encoding.UTF8))
             {
-                var conteudoArquivo = reader.ReadToEnd();
-
-                while (linhas != 0)
+                string linha;
+                while ((linha = reader.ReadLine()) != null)
                 {
-                    var leitura = conteudoArquivo.Split(',');
-
-                    var expending = new Expending
-                    {
-                        Value = double.Parse(leitura[0]),
-                        Description = leitura[1],
-                        Inative = bool.Parse(leitura[2]),
-                        DateExpiration = DateTime.Parse(leitura[3]),
-                        DateRelease = DateTime.Parse(leitura[4]),
-                        DatePayment = DateTime.Parse(leitura[5]),
-                    };
-                    linhas--;
-                    file.Expendings.Add(expending);
-                }
-
+                    file.Expendings.Add(ConverterLinhaParaObjeto(linha));
+                }                              
             }
 
             file.DateUpload = DateTime.UtcNow;
 
             return file;
+        }
+
+        static Expending ConverterLinhaParaObjeto(string linha)
+        {
+            string[] colunas = linha.Split(',');
+            return new Expending
+            {
+                Value = double.Parse(colunas[0]),
+                Description = colunas[1],
+                Inative = bool.Parse(colunas[2]),
+                DateExpiration = DateTime.Parse(colunas[3]),
+                DateRelease = DateTime.Parse(colunas[4]),
+                DatePayment = DateTime.Parse(colunas[5]),
+            };
         }
     }
 }
