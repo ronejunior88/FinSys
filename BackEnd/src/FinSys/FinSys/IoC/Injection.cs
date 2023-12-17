@@ -8,6 +8,7 @@ using FinSys.Query.Queries.GetExpendingsById;
 using FinSys.Query.Service.GetExpendingService;
 using FinSys.Service.Expendings.AddExpendingService;
 using FinSys.Service.Expendings.UpdateExpendingService;
+using FinSys.Service.Expendings.UploadExpendingService;
 using FinSys.Service.Interfaces;
 using MediatR;
 
@@ -45,6 +46,7 @@ namespace FinSys.IoC
             services.AddScoped<IAddExpendingService, AddExpendingService>();
             services.AddScoped<IGetExpendingService, GetExpendingService>();
             services.AddScoped<IUpdateExpendingService, UpdateExpendingService>();
+            services.AddScoped<IUploadExpendingService, UploadExpendingService>();
         }
 
         public void InjectHandler(IServiceCollection services)

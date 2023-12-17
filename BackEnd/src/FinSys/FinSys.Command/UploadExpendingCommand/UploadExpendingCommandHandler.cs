@@ -14,10 +14,10 @@ namespace FinSys.Command.UploadExpendingCommand
     public class UploadExpendingCommandHandler : IRequestHandler<UploadExpendingCommand>
     {
         IConfiguration _configuration;
-        IAddExpendingService _command;
+        IUploadExpendingService _command;
         IMapper _mapper;
 
-        public UploadExpendingCommandHandler(IConfiguration configuration, IMapper mapper, IAddExpendingService command)
+        public UploadExpendingCommandHandler(IConfiguration configuration, IMapper mapper, IUploadExpendingService command)
         {
             _configuration = configuration;
             _mapper = mapper;
@@ -26,12 +26,9 @@ namespace FinSys.Command.UploadExpendingCommand
 
         public async Task Handle(UploadExpendingCommand request, CancellationToken cancellationToken)
         {
-            foreach (var item in request.Expendings)
-            {
-                var commandMap = _mapper.Map<ExpendingDTO>(item);
-                await _command.AddExpending(commandMap);
-            }
             
+            var commandMap = _mapper.Map<IEnumerable<ExpendingDTO>>(request.Expendings);
+            await _command.AddUploadExpending(commandMap.ToList());
         }
     }
 }

@@ -15,6 +15,7 @@
     <PackageReference Include="MediatR" Version="12.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="Z.Dapper.Plus" Version="7.2.1" />
   </ItemGroup>
 
 </Project>
