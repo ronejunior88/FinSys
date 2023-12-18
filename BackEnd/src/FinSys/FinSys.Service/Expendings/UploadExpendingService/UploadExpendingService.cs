@@ -1,4 +1,5 @@
-﻿using FinSys.Service.Domain;
+﻿using Dapper;
+using FinSys.Service.Domain;
 using FinSys.Service.Interfaces;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -34,39 +35,13 @@ namespace FinSys.Service.Expendings.UploadExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = "INSERT INTO Expending ([Id], [Value], [Description], [Inative], [DateExpiration], [DateRelease], [DatePayment]) VALUES (@Id, @Value, @Description, @Inative, @DateExpiration, @DateRelease, @DatePayment)";
+                string sqlQuery = @"INSERT INTO Expending ([Id], [Value], [Description], [Inative], [DateExpiration], [DateRelease], [DatePayment]) VALUES (@Id, @Value, @Description, @Inative, @DateExpiration, @DateRelease, @DatePayment)";
 
-                using (SqlCommand cmd = new SqlCommand(sqlQuery, connection))
-                {
-                    foreach (var item in expendings)
-                    {
-                        cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
-                        cmd.Parameters["@Id"].Value = item.Id;
-
-                        cmd.Parameters.Add("@Value", SqlDbType.Decimal);
-                        cmd.Parameters["@Value"].Value = item.Value;
-
-                        cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 100);
-                        cmd.Parameters["@Description"].Value = item.Description;
-
-                        cmd.Parameters.Add("@Inative", SqlDbType.Bit, 100);
-                        cmd.Parameters["@Inative"].Value = item.Inative;
-
-                        cmd.Parameters.Add("@DateExpiration", SqlDbType.DateTime);
-                        cmd.Parameters["@DateExpiration"].Value = item.DateExpiration;
-
-                        cmd.Parameters.Add("@DateRelease", SqlDbType.DateTime);
-                        cmd.Parameters["@DateRelease"].Value = item.DateRelease;
-
-
-                        cmd.Parameters.Add("@DatePayment", SqlDbType.DateTime);
-                        cmd.Parameters["@DatePayment"].Value = item.DatePayment == null ? DBNull.Value : item.DatePayment;
-                    }
-                    connection.BulkInsert(sqlQuery, cmd.Parameters);
-                }         
+                await connection.ExecuteAsync(sqlQuery, expendings);
                 connection.Close();
-            }
+            }          
         }
     }
 }
+
 

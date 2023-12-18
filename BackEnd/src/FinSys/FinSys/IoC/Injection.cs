@@ -11,13 +11,14 @@ using FinSys.Service.Expendings.UpdateExpendingService;
 using FinSys.Service.Expendings.UploadExpendingService;
 using FinSys.Service.Interfaces;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FinSys.IoC
 {
     public class Injection
     {
         public Injection()
-        {  }
+        { }
 
         private IConfiguration _configuration;
 
