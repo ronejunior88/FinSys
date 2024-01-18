@@ -6,6 +6,7 @@ using FinSys.Query.Queries.GetExpendingByValue;
 using FinSys.Query.Queries.GetExpendingsAll;
 using FinSys.Query.Queries.GetExpendingsById;
 using FinSys.Uploads;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,8 @@ namespace FinSys.Controllers
         private IMapper _mapper;
         private IMediator _mediator;
 
+        private readonly IValidator<AddExpendingCommand> _expendingValidator;
+
         private readonly AddExpendingCommandHandler _addExpendingCommandHandler;
         private readonly UpdateExpendingCommandHandler _updateExpendingCommandHandler;
         private readonly UploadExpendingCommandHandler _uploadExpendingCommandHandler;
@@ -27,9 +30,10 @@ namespace FinSys.Controllers
         private readonly GetExpendingsByIdHandler _getExpendingsById;
         private readonly GetExpendingByValueHandler _getExpendingByValue;
 
-        public FinSysController(IConfiguration configuration, 
+        public FinSysController(IConfiguration configuration,
                                        IMapper mapper,
                                      IMediator mediator,
+     IValidator<AddExpendingCommand> expendingValidator,
                     AddExpendingCommandHandler addExpendingCommandHandler,
                  UpdateExpendingCommandHandler updateExpendingCommandHandler,
                  UploadExpendingCommandHandler uploadExpendingCommandHandler,
@@ -40,6 +44,7 @@ namespace FinSys.Controllers
             _configuration = configuration;
             _mapper = mapper;
             _mediator = mediator;
+            _expendingValidator = expendingValidator;
             _addExpendingCommandHandler = addExpendingCommandHandler;
             _updateExpendingCommandHandler = updateExpendingCommandHandler;
             _uploadExpendingCommandHandler = uploadExpendingCommandHandler;
@@ -123,6 +128,13 @@ namespace FinSys.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]AddExpendingCommand request, CancellationToken cancellationToken)
         {
+            var validationResult = _expendingValidator.Validate(request);
+
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(error => error.ErrorMessage));
+            }
+
             try
             {
                 await _addExpendingCommandHandler.Handle(request, cancellationToken);

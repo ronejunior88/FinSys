@@ -10,6 +10,7 @@ using FinSys.Service.Expendings.AddExpendingService;
 using FinSys.Service.Expendings.UpdateExpendingService;
 using FinSys.Service.Expendings.UploadExpendingService;
 using FinSys.Service.Interfaces;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -33,6 +34,7 @@ namespace FinSys.IoC
             InjectionCommand(services);
             InjectServices(services);
             InjectHandler(services);
+            InjectValidator(services);
         }
 
         public void InjectionCommand(IServiceCollection services)
@@ -59,6 +61,11 @@ namespace FinSys.IoC
             services.AddTransient<GetExpendingsAllHandler>();
             services.AddTransient<GetExpendingsByIdHandler>();
             services.AddTransient<GetExpendingByValueHandler>();
+        }
+
+        public void InjectValidator(IServiceCollection services)
+        {
+            services.AddTransient<IValidator<AddExpendingCommand>, AddExpendingCommandValidation>();
         }
 
         public void InjectProfiles()
