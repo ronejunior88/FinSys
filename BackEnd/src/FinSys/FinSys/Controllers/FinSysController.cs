@@ -128,6 +128,9 @@ namespace FinSys.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]AddExpendingCommand request, CancellationToken cancellationToken)
         {
+
+            ModelState.Clear();
+
             var validationResult = _expendingValidator.Validate(request);
 
             if (!validationResult.IsValid)
