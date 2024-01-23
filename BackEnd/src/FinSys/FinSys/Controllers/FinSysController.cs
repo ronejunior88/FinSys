@@ -20,7 +20,8 @@ namespace FinSys.Controllers
         private IMapper _mapper;
         private IMediator _mediator;
 
-        private readonly IValidator<AddExpendingCommand> _expendingValidator;
+        private readonly IValidator<AddExpendingCommand> _expendingAddValidator;
+        private readonly IValidator<UpdateExpendingCommand> _expendingUpdateValidator;
 
         private readonly AddExpendingCommandHandler _addExpendingCommandHandler;
         private readonly UpdateExpendingCommandHandler _updateExpendingCommandHandler;
@@ -33,7 +34,8 @@ namespace FinSys.Controllers
         public FinSysController(IConfiguration configuration,
                                        IMapper mapper,
                                      IMediator mediator,
-     IValidator<AddExpendingCommand> expendingValidator,
+               IValidator<AddExpendingCommand> expendingAddValidator,
+            IValidator<UpdateExpendingCommand> expendingUpdateValidator,
                     AddExpendingCommandHandler addExpendingCommandHandler,
                  UpdateExpendingCommandHandler updateExpendingCommandHandler,
                  UploadExpendingCommandHandler uploadExpendingCommandHandler,
@@ -44,7 +46,8 @@ namespace FinSys.Controllers
             _configuration = configuration;
             _mapper = mapper;
             _mediator = mediator;
-            _expendingValidator = expendingValidator;
+            _expendingAddValidator = expendingAddValidator;
+            _expendingUpdateValidator = expendingUpdateValidator;
             _addExpendingCommandHandler = addExpendingCommandHandler;
             _updateExpendingCommandHandler = updateExpendingCommandHandler;
             _uploadExpendingCommandHandler = uploadExpendingCommandHandler;
@@ -129,7 +132,7 @@ namespace FinSys.Controllers
         public async Task<IActionResult> Post([FromBody]AddExpendingCommand request, CancellationToken cancellationToken)
         {
 
-            var validationResult = _expendingValidator.Validate(request);
+            var validationResult = _expendingAddValidator.Validate(request);
 
             if (!validationResult.IsValid)
             {
@@ -151,6 +154,13 @@ namespace FinSys.Controllers
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] UpdateExpendingCommand request, CancellationToken cancellationToken)
         {
+            var validationResult = _expendingUpdateValidator.Validate(request);
+
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(error => error.ErrorMessage));
+            }
+
             try
             {
                 await _updateExpendingCommandHandler.Handle(request, cancellationToken);

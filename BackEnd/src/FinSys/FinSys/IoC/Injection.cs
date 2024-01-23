@@ -66,6 +66,7 @@ namespace FinSys.IoC
         public void InjectValidator(IServiceCollection services)
         {
             services.AddTransient<IValidator<AddExpendingCommand>, AddExpendingCommandValidation>();
+            services.AddTransient<IValidator<UpdateExpendingCommand>, UpdateExpendingCommandValidation>();
         }
 
         public void InjectProfiles()
