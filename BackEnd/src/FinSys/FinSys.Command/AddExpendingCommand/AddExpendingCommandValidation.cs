@@ -8,8 +8,10 @@ namespace FinSys.Command.AddExpendingCommand
         {
             RuleFor(command => command.Value)
              .NotEmpty().WithMessage("O valor não pode estar vazio")
-             .NotNull().WithMessage("O valor não pode estar nulo")
-             .Must(value => IsValidDouble(value)).WithMessage("O valor do double pode ser até 18 antes da virgula e 2 depois da virgula");
+             .NotNull().WithMessage("O valor não pode estar nulo");
+
+             RuleFor(command => command.Value.ToString())
+             .Length(2,18).WithMessage("O valor do double pode ser até 18 antes do ponto e 2 depois do ponto");
 
             RuleFor(command => command.Description)
              .NotEmpty().WithMessage("A descrição não pode estar vazia")
@@ -27,11 +29,6 @@ namespace FinSys.Command.AddExpendingCommand
             RuleFor(command => command.DateRelease)
              .NotEmpty().WithMessage("A data de emissão não pode estar vazia")
              .NotNull().WithMessage("A data de emissão não pode estar nula");             
-        }
-
-        private bool IsValidDouble(double? value)
-        {
-            return value.HasValue && value <= 18 && value == 2;
         }
     }
 }

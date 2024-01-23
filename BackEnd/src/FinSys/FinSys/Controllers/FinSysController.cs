@@ -129,13 +129,11 @@ namespace FinSys.Controllers
         public async Task<IActionResult> Post([FromBody]AddExpendingCommand request, CancellationToken cancellationToken)
         {
 
-            ModelState.Clear();
-
             var validationResult = _expendingValidator.Validate(request);
 
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors.Select(error => error.ErrorMessage));
+                    return BadRequest(validationResult.Errors.Select(error => error.ErrorMessage));        
             }
 
             try
