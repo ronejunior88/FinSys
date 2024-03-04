@@ -1,10 +1,6 @@
-﻿using CsvHelper.Configuration;
-using CsvHelper;
-using FinSys.Command.Domain;
+﻿using FinSys.Command.Domain;
 using FinSys.Command.UploadExpendingCommand;
-using System.Globalization;
 using System.Text;
-using System.Reflection;
 
 namespace FinSys.Uploads
 {
@@ -24,13 +20,17 @@ namespace FinSys.Uploads
             file.Name = File.FileName;
             file.NumberLines = File.Headers.Count();
 
-            using (var reader = new StreamReader(File.OpenReadStream(), Encoding.UTF8))
+            using (var stream = File.OpenReadStream())
+            using (var reader = new StreamReader(stream, Encoding.UTF8))
             {
-                string linha;
-                while ((linha = reader.ReadLine()) != null)
+                reader.ReadLine();
+
+                while (!reader.EndOfStream)
                 {
+                    string linha = reader.ReadLine();
                     file.Expendings.Add(ConvertLineForObject(linha));
-                }                              
+                }
+
             }
 
             file.DateUpload = DateTime.UtcNow;
@@ -38,17 +38,17 @@ namespace FinSys.Uploads
             return file;
         }
 
-        static Expending ConvertLineForObject(string linha)
+        public static Expending ConvertLineForObject(string lines)
         {
-            string[] colunas = linha.Split(',');
+            string[] colunm = lines.Split(';');
             return new Expending
             {
-                Value = double.Parse(colunas[0]),
-                Description = colunas[1],
-                Inative = bool.Parse(colunas[2]),
-                DateExpiration = DateTime.Parse(colunas[3]),
-                DateRelease = DateTime.Parse(colunas[4]),
-                DatePayment = DateTime.Parse(colunas[5]),
+                Value = double.Parse(colunm[0]),
+                Description = colunm[1],
+                Inative = bool.Parse(colunm[2]),
+                DateExpiration = DateTime.Parse(colunm[3]),
+                DateRelease = DateTime.Parse(colunm[4]),
+                DatePayment = DateTime.Parse(colunm[5]),
             };
         }
     }
