@@ -18,38 +18,34 @@ namespace FinSys.Uploads
             UploadExpendingCommand file = new UploadExpendingCommand();
 
             file.Name = File.FileName;
-            file.NumberLines = File.Headers.Count();
 
-            using (var stream = File.OpenReadStream())
-            using (var reader = new StreamReader(stream, Encoding.UTF8))
+            var stream = File.OpenReadStream();
+            var reader = new StreamReader(stream);
+
+            var header = reader.ReadLine();
+            string itens;
+
+            while((itens = reader.ReadLine()) != null)
             {
-                reader.ReadLine();
+                var item = itens.Split(';');
 
-                while (!reader.EndOfStream)
+                var expending = new Expending
                 {
-                    string linha = reader.ReadLine();
-                    file.Expendings.Add(ConvertLineForObject(linha));
-                }
+                    Value = double.Parse(item[0]),
+                    Description = item[1],
+                    Inative = bool.Parse(item[2]),
+                    DateExpiration = DateTime.Parse(item[3]),
+                    DateRelease = DateTime.Parse(item[4]),
+                    DatePayment = DateTime.Parse(item[5]),
+                };
 
+                file.Expendings.Add(expending);
             }
 
+            file.NumberLines = file.Expendings.Count();
             file.DateUpload = DateTime.UtcNow;
 
             return file;
-        }
-
-        public static Expending ConvertLineForObject(string lines)
-        {
-            string[] colunm = lines.Split(';');
-            return new Expending
-            {
-                Value = double.Parse(colunm[0]),
-                Description = colunm[1],
-                Inative = bool.Parse(colunm[2]),
-                DateExpiration = DateTime.Parse(colunm[3]),
-                DateRelease = DateTime.Parse(colunm[4]),
-                DatePayment = DateTime.Parse(colunm[5]),
-            };
         }
     }
 }
