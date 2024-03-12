@@ -21,10 +21,9 @@ namespace FinSys.Uploads
 
             var stream = File.OpenReadStream();
             var reader = new StreamReader(stream);
+            //var header = reader.ReadLine();
 
-            var header = reader.ReadLine();
             string itens;
-
             while((itens = reader.ReadLine()) != null)
             {
                 var item = itens.Split(';');
