@@ -31,4 +31,11 @@ ALTER TABLE Expending
 ADD [DatePayment] DATETIME;
 GO
 
+IF NOT EXISTS(SELECT 'SystemUser' FROM sys.tables)
+CREATE TABLE SystemUser (
+[Id] uniqueidentifier PRIMARY KEY NOT NULL,
+[Name] VARCHAR(150) NOT NULL,
+[DateBirth] VARCHAR(500),
+)
+GO
  

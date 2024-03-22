@@ -32,7 +32,7 @@ namespace FinSys.Query.Service.GetExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = @"SELECT [Id], [Value], [Description], [Inative], [DateExpiration], [DateRelease], [DatePayment] FROM Expending";
+                string sqlQuery = @"SELECT [Id], [Value], [Description], [Inative], [DateExpiration], [DateRelease], [DatePayment], [IdUser] FROM Expending";
 
                 result = await connection.QueryAsync<GetExpendingsAllResponse>(sqlQuery);
 
@@ -51,7 +51,7 @@ namespace FinSys.Query.Service.GetExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = @"SELECT [Id], [Value], [Description], [Inative], [DateExpiration], [DateRelease], [DatePayment] FROM Expending WHERE [id] = @Id";
+                string sqlQuery = @"SELECT [Id], [Value], [Description], [Inative], [DateExpiration], [DateRelease], [DatePayment], [IdUser] FROM Expending WHERE [id] = @Id";
 
                 result = await connection.QueryFirstOrDefaultAsync<GetExpendingsByIdResponse>(sqlQuery,request);
 
@@ -71,7 +71,7 @@ namespace FinSys.Query.Service.GetExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = @"SELECT [Id], [Value], [Description], [Inative], [DateExpiration], [DateRelease], [DatePayment] FROM Expending WHERE [Value] = @Value";
+                string sqlQuery = @"SELECT [Id], [Value], [Description], [Inative], [DateExpiration], [DateRelease], [DatePayment], [IdUser] FROM Expending WHERE [Value] = @Value";
 
                 expendingList = await connection.QueryAsync<GetExpendingByValueResponse>(sqlQuery, request);
 

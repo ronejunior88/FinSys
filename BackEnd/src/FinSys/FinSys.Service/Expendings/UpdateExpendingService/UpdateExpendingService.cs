@@ -28,7 +28,7 @@ namespace FinSys.Service.Expendings.UpdateExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = @"UPDATE Expending SET [Value] = @Value, [Description] = @Description, [Inative]= @Inative, [DateExpiration]= @DateExpiration, [DateRelease]= @DateRelease, [DatePayment]= @DatePayment WHERE [Id] = @Id";
+                string sqlQuery = @"UPDATE Expending SET [Value] = @Value, [Description] = @Description, [Inative]= @Inative, [DateExpiration]= @DateExpiration, [DateRelease]= @DateRelease, [DatePayment]= @DatePayment, [IdUser]= @IdUser WHERE [Id] = @Id";
 
                 rowsAffected = connection.ExecuteAsync(sqlQuery, expending).Result;
                 connection.Close();

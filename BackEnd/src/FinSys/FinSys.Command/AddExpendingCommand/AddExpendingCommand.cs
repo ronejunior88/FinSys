@@ -24,5 +24,8 @@ namespace FinSys.Command.AddExpendingCommand
         public DateTime DateRelease { get; set; }
 
         public DateTime? DatePayment { get; set; }
+
+        [Required(ErrorMessage = "O campo Usuario é obrigatório.")]
+        public string IdUser { get; set; }
     }
 }

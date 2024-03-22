@@ -15,5 +15,6 @@ namespace FinSys.Query.Queries.GetExpendingsAll
         public DateTime DateExpiration { get; set; }
         public DateTime DateRelease { get; set; }
         public DateTime? DatePayment { get; set; }
+        public string IdUser { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace FinSys.Service.Expendings.AddExpendingService
             {
                 connection.Open();
 
-                string sqlQuery = @"INSERT INTO Expending ([Id], [Value], [Description], [Inative], [DateExpiration], [DateRelease], [DatePayment]) VALUES (@Id, @Value, @Description, @Inative, @DateExpiration, @DateRelease, @DatePayment)";
+                string sqlQuery = @"INSERT INTO Expending ([Id], [Value], [Description], [Inative], [DateExpiration], [DateRelease], [DatePayment], [IdUser]) VALUES (@Id, @Value, @Description, @Inative, @DateExpiration, @DateRelease, @DatePayment, @[IdUser)";
 
                 await connection.ExecuteAsync(sqlQuery, expending);
                 

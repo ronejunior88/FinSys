@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,5 +17,6 @@ namespace FinSys.Command.UpdateExpendingCommand
         public DateTime DateExpiration { get; set; }
         public DateTime DateRelease { get; set; }
         public DateTime? DatePayment { get; set; }
+        public string IdUser { get; set; }
     }
 }
