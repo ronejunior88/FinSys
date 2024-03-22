@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace FinSys.Command.AddSystemUserCommand
 {
-    public class AddSystemUserCommand
+    public class AddSystemUserCommand : IRequest
     {
-
+        public string Name { get; set; }
+        public DateTime DateBirth { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FinSys.Command.AddExpendingCommand;
+using FinSys.Command.AddSystemUserCommand;
 using FinSys.Command.UpdateExpendingCommand;
 using FinSys.Command.UploadExpendingCommand;
 using FinSys.Query.Interfaces;
@@ -10,6 +11,7 @@ using FinSys.Service.Expendings.AddExpendingService;
 using FinSys.Service.Expendings.UpdateExpendingService;
 using FinSys.Service.Expendings.UploadExpendingService;
 using FinSys.Service.Interfaces;
+using FinSys.Service.SystemUser.AddSystemUserService;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,6 +44,8 @@ namespace FinSys.IoC
             services.AddTransient<IRequestHandler<AddExpendingCommand>, AddExpendingCommandHandler>();
             services.AddTransient<IRequestHandler<UpdateExpendingCommand>, UpdateExpendingCommandHandler>();
             services.AddTransient<IRequestHandler<UploadExpendingCommand>, UploadExpendingCommandHandler>();
+
+            services.AddTransient<IRequestHandler<AddSystemUserCommand>, AddSystemUserCommandHandler>();
         }
 
         public void InjectServices(IServiceCollection services)
@@ -50,6 +54,8 @@ namespace FinSys.IoC
             services.AddScoped<IGetExpendingService, GetExpendingService>();
             services.AddScoped<IUpdateExpendingService, UpdateExpendingService>();
             services.AddScoped<IUploadExpendingService, UploadExpendingService>();
+
+            services.AddScoped<IAddSystemUserService, AddSystemUserService>();
         }
 
         public void InjectHandler(IServiceCollection services)
@@ -61,12 +67,16 @@ namespace FinSys.IoC
             services.AddTransient<GetExpendingsAllHandler>();
             services.AddTransient<GetExpendingsByIdHandler>();
             services.AddTransient<GetExpendingByValueHandler>();
+
+            services.AddTransient<AddSystemUserCommandHandler>();
         }
 
         public void InjectValidator(IServiceCollection services)
         {
             services.AddTransient<IValidator<AddExpendingCommand>, AddExpendingCommandValidation>();
             services.AddTransient<IValidator<UpdateExpendingCommand>, UpdateExpendingCommandValidation>();
+
+            services.AddTransient<IValidator<AddSystemUserCommand>, AddSystemUserCommandValidation>();
         }
 
         public void InjectProfiles()

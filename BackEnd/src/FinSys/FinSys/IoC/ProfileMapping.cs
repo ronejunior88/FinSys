@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FinSys.Command.AddExpendingCommand;
+using FinSys.Command.AddSystemUserCommand;
 using FinSys.Command.Domain;
 using FinSys.Command.UpdateExpendingCommand;
 using FinSys.Command.UploadExpendingCommand;
@@ -15,6 +16,8 @@ namespace FinSys.IoC
             CreateMap<UpdateExpendingCommand, ExpendingDTO>().ReverseMap();
             CreateMap<UploadExpendingCommand, Expending>().ReverseMap();
             CreateMap<Expending, ExpendingDTO>().ReverseMap();
+
+            CreateMap<AddSystemUserCommand, SystemUserDTO>().ReverseMap();
         }
     }
 }

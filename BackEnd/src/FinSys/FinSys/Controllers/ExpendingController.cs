@@ -14,7 +14,7 @@ namespace FinSys.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FinSysController : ControllerBase
+    public class ExpendingController : ControllerBase
     {
         private IConfiguration _configuration;
         private IMapper _mapper;
@@ -31,7 +31,7 @@ namespace FinSys.Controllers
         private readonly GetExpendingsByIdHandler _getExpendingsById;
         private readonly GetExpendingByValueHandler _getExpendingByValue;
 
-        public FinSysController(IConfiguration configuration,
+        public ExpendingController(IConfiguration configuration,
                                        IMapper mapper,
                                      IMediator mediator,
                IValidator<AddExpendingCommand> expendingAddValidator,

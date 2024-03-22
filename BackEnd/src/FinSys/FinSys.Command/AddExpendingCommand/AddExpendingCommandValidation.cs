@@ -24,7 +24,7 @@ namespace FinSys.Command.AddExpendingCommand
 
             RuleFor(command => command.DateExpiration)
              .NotEmpty().WithMessage("A data de expiração não pode estar vazia")
-             .NotNull().WithMessage("O data de expiração não pode estar nula");
+             .NotNull().WithMessage("A data de expiração não pode estar nula");
 
             RuleFor(command => command.DateRelease)
              .NotEmpty().WithMessage("A data de emissão não pode estar vazia")
