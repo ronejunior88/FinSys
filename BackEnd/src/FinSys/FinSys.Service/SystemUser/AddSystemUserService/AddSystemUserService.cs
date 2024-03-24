@@ -19,7 +19,7 @@ namespace FinSys.Service.SystemUser.AddSystemUserService
             _configuration = configuration;
         }
 
-        public async Task AddSystemUser(SystemUserDTO user)
+        public async Task AddSystemUser(SystemUserDTO systemUser)
         {
             _connection = _configuration.GetConnectionString("FinSys");
 
@@ -29,7 +29,7 @@ namespace FinSys.Service.SystemUser.AddSystemUserService
 
                 string sqlQuery = @"INSERT INTO SystemUser ([Id], [Name], [DateBirth]) VALUES (@Id, @Name, @DateBirth)";
 
-                await connection.ExecuteAsync(sqlQuery, user);
+                await connection.ExecuteAsync(sqlQuery, systemUser);
 
                 connection.Close();
             }

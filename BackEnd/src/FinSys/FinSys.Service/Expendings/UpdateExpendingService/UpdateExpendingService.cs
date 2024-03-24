@@ -2,7 +2,6 @@
 using FinSys.Service.Domain;
 using FinSys.Service.Interfaces;
 using Microsoft.Extensions.Configuration;
-using System.Data;
 using System.Data.SqlClient;
 
 namespace FinSys.Service.Expendings.UpdateExpendingService
