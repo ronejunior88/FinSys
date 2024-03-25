@@ -7,7 +7,9 @@ using FinSys.Query.Interfaces;
 using FinSys.Query.Queries.GetExpendingByValue;
 using FinSys.Query.Queries.GetExpendingsAll;
 using FinSys.Query.Queries.GetExpendingsById;
+using FinSys.Query.Queries.GetSystemUserAll;
 using FinSys.Query.Service.GetExpendingService;
+using FinSys.Query.Service.GetSystemUserService;
 using FinSys.Service.Expendings.AddExpendingService;
 using FinSys.Service.Expendings.UpdateExpendingService;
 using FinSys.Service.Expendings.UploadExpendingService;
@@ -58,6 +60,7 @@ namespace FinSys.IoC
             services.AddScoped<IUploadExpendingService, UploadExpendingService>();
 
             services.AddScoped<IAddSystemUserService, AddSystemUserService>();
+            services.AddScoped<IGetSystemUserService, GetSystemUserService>();
             services.AddScoped<IUpdateSystemUseService, UpdateSystemUseService>();
         }
 
@@ -66,13 +69,13 @@ namespace FinSys.IoC
             services.AddTransient<AddExpendingCommandHandler>();
             services.AddTransient<UpdateExpendingCommandHandler>();
             services.AddTransient<UploadExpendingCommandHandler>();
-
             services.AddTransient<GetExpendingsAllHandler>();
             services.AddTransient<GetExpendingsByIdHandler>();
             services.AddTransient<GetExpendingByValueHandler>();
 
             services.AddTransient<AddSystemUserCommandHandler>();
             services.AddTransient<UpdateSystemUserCommandHandler>();
+            services.AddTransient<GetSystemUserAllHandler>();
         }
 
         public void InjectValidator(IServiceCollection services)

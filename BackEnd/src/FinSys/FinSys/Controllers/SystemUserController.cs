@@ -3,6 +3,8 @@ using FinSys.Command.AddExpendingCommand;
 using FinSys.Command.AddSystemUserCommand;
 using FinSys.Command.UpdateExpendingCommand;
 using FinSys.Command.UpdateSystemUserCommand;
+using FinSys.Query.Queries.GetExpendingsAll;
+using FinSys.Query.Queries.GetSystemUserAll;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -23,13 +25,16 @@ namespace FinSys.Controllers
         private readonly AddSystemUserCommandHandler _addSystemUserCommandHandler;
         private readonly UpdateSystemUserCommandHandler _updateSystemUserCommandHandler;
 
+        private readonly GetSystemUserAllHandler _getSystemUserAll;
+
         public SystemUserController(IConfiguration configuration,
                                            IMapper mapper,
                                          IMediator mediator,
                   IValidator<AddSystemUserCommand> systemUserAddValidator,
                IValidator<UpdateSystemUserCommand> systemUserUpdateValidator,
                        AddSystemUserCommandHandler addSystemUserCommandHandler,
-                    UpdateSystemUserCommandHandler updateSystemUserCommandHandler
+                    UpdateSystemUserCommandHandler updateSystemUserCommandHandler,
+                           GetSystemUserAllHandler getSystemUserAll
                        )
         {
             _configuration = configuration;
@@ -39,6 +44,23 @@ namespace FinSys.Controllers
             _systemUserUpdateValidator = systemUserUpdateValidator;
             _addSystemUserCommandHandler = addSystemUserCommandHandler;
             _updateSystemUserCommandHandler = updateSystemUserCommandHandler;
+            _getSystemUserAll = getSystemUserAll;
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await _getSystemUserAll.Handle(new GetSystemUserAll(), cancellationToken);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Erro com busca de usuarios: ", ex);
+            }
+
         }
 
         [HttpPost]

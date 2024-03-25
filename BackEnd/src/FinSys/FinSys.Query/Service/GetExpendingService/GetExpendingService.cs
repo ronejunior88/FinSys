@@ -4,8 +4,6 @@ using FinSys.Query.Queries.GetExpendingByValue;
 using FinSys.Query.Queries.GetExpendingsAll;
 using FinSys.Query.Queries.GetExpendingsById;
 using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 
 namespace FinSys.Query.Service.GetExpendingService
