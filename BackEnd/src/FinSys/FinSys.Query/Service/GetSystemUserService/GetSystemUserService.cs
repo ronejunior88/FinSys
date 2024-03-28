@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using FinSys.Query.Interfaces;
 using FinSys.Query.Queries.GetSystemUserAll;
+using FinSys.Query.Queries.GetSystemUserById;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 
@@ -22,7 +23,6 @@ namespace FinSys.Query.Service.GetSystemUserService
         public async Task<IEnumerable<GetSystemUserAllResponse>> GetSystemUsersAllAsync()
         {
             _connection = _configuration.GetConnectionString("FinSys");
-            IEnumerable<GetSystemUserAllResponse> result;
 
             using (SqlConnection connection = new SqlConnection(_connection))
             {
@@ -30,11 +30,29 @@ namespace FinSys.Query.Service.GetSystemUserService
 
                 string sqlQuery = @"SELECT [Id], [Name], [DateBirth] FROM SystemUser";
 
-                result = await connection.QueryAsync<GetSystemUserAllResponse>(sqlQuery);
+                var result = await connection.QueryAsync<GetSystemUserAllResponse>(sqlQuery);
 
                 connection.Close();
+
+                return result;
             }
-            return result;
+        }
+
+        public async Task<GetSystemUserByIdResponse> GetSystemUsersByIdAsync(GetSystemUserById request)
+        {
+            _connection = _configuration.GetConnectionString("FinSys");
+
+            using (SqlConnection connection = new SqlConnection(_connection))
+            {
+                connection.Open();
+
+                string sqlQuery = @"SELECT [Id], [Name], [DateBirth] FROM SystemUser WHERE [Id] = @Id";
+
+                var result = await connection.QueryFirstOrDefaultAsync<GetSystemUserByIdResponse>(sqlQuery,request);
+
+                connection.Close();
+                return result;
+            }
         }
     }
 }

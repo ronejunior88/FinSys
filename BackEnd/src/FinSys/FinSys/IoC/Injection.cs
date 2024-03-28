@@ -8,6 +8,7 @@ using FinSys.Query.Queries.GetExpendingByValue;
 using FinSys.Query.Queries.GetExpendingsAll;
 using FinSys.Query.Queries.GetExpendingsById;
 using FinSys.Query.Queries.GetSystemUserAll;
+using FinSys.Query.Queries.GetSystemUserById;
 using FinSys.Query.Service.GetExpendingService;
 using FinSys.Query.Service.GetSystemUserService;
 using FinSys.Service.Expendings.AddExpendingService;
@@ -76,6 +77,7 @@ namespace FinSys.IoC
             services.AddTransient<AddSystemUserCommandHandler>();
             services.AddTransient<UpdateSystemUserCommandHandler>();
             services.AddTransient<GetSystemUserAllHandler>();
+            services.AddTransient<GetSystemUserByIdHandler>();
         }
 
         public void InjectValidator(IServiceCollection services)

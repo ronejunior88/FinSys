@@ -4,10 +4,13 @@ using FinSys.Command.AddSystemUserCommand;
 using FinSys.Command.UpdateExpendingCommand;
 using FinSys.Command.UpdateSystemUserCommand;
 using FinSys.Query.Queries.GetExpendingsAll;
+using FinSys.Query.Queries.GetExpendingsById;
 using FinSys.Query.Queries.GetSystemUserAll;
+using FinSys.Query.Queries.GetSystemUserById;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using static Slapper.AutoMapper;
 
 namespace FinSys.Controllers
 {
@@ -26,6 +29,7 @@ namespace FinSys.Controllers
         private readonly UpdateSystemUserCommandHandler _updateSystemUserCommandHandler;
 
         private readonly GetSystemUserAllHandler _getSystemUserAll;
+        private readonly GetSystemUserByIdHandler _getSystemUserById;
 
         public SystemUserController(IConfiguration configuration,
                                            IMapper mapper,
@@ -34,7 +38,8 @@ namespace FinSys.Controllers
                IValidator<UpdateSystemUserCommand> systemUserUpdateValidator,
                        AddSystemUserCommandHandler addSystemUserCommandHandler,
                     UpdateSystemUserCommandHandler updateSystemUserCommandHandler,
-                           GetSystemUserAllHandler getSystemUserAll
+                           GetSystemUserAllHandler getSystemUserAll,
+                          GetSystemUserByIdHandler getSystemUserById
                        )
         {
             _configuration = configuration;
@@ -45,6 +50,7 @@ namespace FinSys.Controllers
             _addSystemUserCommandHandler = addSystemUserCommandHandler;
             _updateSystemUserCommandHandler = updateSystemUserCommandHandler;
             _getSystemUserAll = getSystemUserAll;
+            _getSystemUserById = getSystemUserById;
         }
 
         [HttpGet()]
@@ -59,6 +65,21 @@ namespace FinSys.Controllers
             {
 
                 throw new Exception("Erro com busca de usuarios: ", ex);
+            }
+
+        }
+
+        [HttpGet("Id")]
+        public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await _getSystemUserById.Handle(new GetSystemUserById(id), cancellationToken);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            { 
+                throw new Exception("Erro com busca de usuario por Id: ", ex);
             }
 
         }
