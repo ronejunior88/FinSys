@@ -1,5 +1,8 @@
 ﻿using FinSys.IoC;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace FinSys
 {
@@ -31,6 +34,27 @@ namespace FinSys
             });
             services.AddControllers();
             services.AddRouting();
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = _configuration["jwt:issuer"],
+                    ValidAudience = _configuration["jwt:audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(_configuration["jwt:secretKey"])),
+                    ClockSkew = TimeSpan.FromMinutes(2)
+                };
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -49,10 +73,6 @@ namespace FinSys
             {
                 endpoints.MapControllers();
             });
-
-
-
-
         }
     }
 }

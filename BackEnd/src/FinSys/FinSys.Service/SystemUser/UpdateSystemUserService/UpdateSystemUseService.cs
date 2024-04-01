@@ -28,7 +28,7 @@ namespace FinSys.Service.SystemUser.UpdateSystemUserService
             {
                 connection.Open();
 
-                string sqlQuery = @"UPDATE SystemUser SET [Name] = @Name, [DateBirth] = @DateBirth WHERE [Id] = @Id";
+                string sqlQuery = @"UPDATE SystemUser SET [Name] = @Name, [Email]=@Email, [PasswordHash]=@PasswordHash, [PasswordSalt]=@PasswordSalt ,[DateBirth] = @DateBirth WHERE [Id] = @Id";
 
                 rowsAffected = connection.ExecuteAsync(sqlQuery, systemUser).Result;
                 connection.Close();

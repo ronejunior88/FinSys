@@ -12,6 +12,7 @@
     <PackageReference Include="Dapper.FluentMap" Version="2.0.0" />
     <PackageReference Include="DapperExtensions" Version="1.7.0" />
     <PackageReference Include="MediatR" Version="12.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.28" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 

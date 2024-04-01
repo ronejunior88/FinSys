@@ -3,6 +3,7 @@ using FinSys.Command.AddExpendingCommand;
 using FinSys.Command.AddSystemUserCommand;
 using FinSys.Command.UpdateExpendingCommand;
 using FinSys.Command.UpdateSystemUserCommand;
+using FinSys.Models;
 using FinSys.Query.Queries.GetExpendingsAll;
 using FinSys.Query.Queries.GetExpendingsById;
 using FinSys.Query.Queries.GetSystemUserAll;
@@ -85,7 +86,7 @@ namespace FinSys.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] AddSystemUserCommand request, CancellationToken cancellationToken)
+        public async Task<IActionResult<UserToken>> Post([FromBody] AddSystemUserCommand request, CancellationToken cancellationToken)
         {
 
             var validationResult = _systemUserAddValidator.Validate(request);

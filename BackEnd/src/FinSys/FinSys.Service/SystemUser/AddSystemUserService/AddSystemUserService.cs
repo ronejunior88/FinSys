@@ -27,7 +27,7 @@ namespace FinSys.Service.SystemUser.AddSystemUserService
             {
                 connection.Open();
 
-                string sqlQuery = @"INSERT INTO SystemUser ([Id], [Name], [DateBirth]) VALUES (@Id, @Name, @DateBirth)";
+                string sqlQuery = @"INSERT INTO SystemUser ([Id], [Name],[Email], [PasswordHash], [PasswordSalt], [DateBirth]) VALUES (@Id, @Name, @Email, @PasswordHash, @PasswordSalt, @DateBirth)";
 
                 await connection.ExecuteAsync(sqlQuery, systemUser);
 

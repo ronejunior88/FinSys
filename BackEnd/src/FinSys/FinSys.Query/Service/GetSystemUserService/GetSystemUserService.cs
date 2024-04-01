@@ -28,7 +28,7 @@ namespace FinSys.Query.Service.GetSystemUserService
             {
                 connection.Open();
 
-                string sqlQuery = @"SELECT [Id], [Name], [DateBirth] FROM SystemUser";
+                string sqlQuery = @"SELECT [Id], [Name], [DateBirth], [Email], [PasswordHash], [PasswordSalt] FROM SystemUser";
 
                 var result = await connection.QueryAsync<GetSystemUserAllResponse>(sqlQuery);
 
@@ -46,7 +46,7 @@ namespace FinSys.Query.Service.GetSystemUserService
             {
                 connection.Open();
 
-                string sqlQuery = @"SELECT [Id], [Name], [DateBirth] FROM SystemUser WHERE [Id] = @Id";
+                string sqlQuery = @"SELECT [Id], [Name], [DateBirth], [Email], [PasswordHash], [PasswordSalt] FROM SystemUser WHERE [Id] = @Id";
 
                 var result = await connection.QueryFirstOrDefaultAsync<GetSystemUserByIdResponse>(sqlQuery,request);
 

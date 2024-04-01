@@ -35,7 +35,10 @@ IF NOT EXISTS(SELECT 'SystemUser' FROM sys.tables)
 CREATE TABLE SystemUser (
 [Id] uniqueidentifier PRIMARY KEY NOT NULL,
 [Name] VARCHAR(150) NOT NULL,
-[DateBirth] VARCHAR(500),
+[Email] VARCHAR(200) NOT NULL,
+[PasswordHash] VARBINARY(MAX) NOT NULL,
+[PasswordSalt] VARBINARY(MAX) NOT NULL,
+[DateBirth] VARCHAR(500)
 )
 GO
  
