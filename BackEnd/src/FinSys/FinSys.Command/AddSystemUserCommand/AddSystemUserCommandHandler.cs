@@ -6,6 +6,8 @@ using FinSys.Service.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Http.Results;
 
 namespace FinSys.Command.AddSystemUserCommand
@@ -28,6 +30,14 @@ namespace FinSys.Command.AddSystemUserCommand
         public async Task<UserToken> Handle(AddSystemUserCommand request, CancellationToken cancellationToken)
         {
             var serviceMap = _mapper.Map<SystemUserDTO>(request);
+
+            using var hmac = new HMACSHA512();
+            byte[] passWordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(request.Password));
+            byte[] passWordSalt = hmac.Key;
+
+            serviceMap.PasswordHash = passWordHash;
+            serviceMap.PasswordSalt = passWordSalt;
+
             await _service.AddSystemUser(serviceMap);
 
             var token = _authenticateService.GenerateToken(request.Id, request.Email);

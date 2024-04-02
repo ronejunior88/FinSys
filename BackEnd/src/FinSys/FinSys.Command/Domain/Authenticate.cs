@@ -77,5 +77,12 @@ namespace FinSys.Command.Domain
 
             return true;
         }
+
+        public async Task<Guid> GetUserByEmail(string email)
+        {
+            var user = _getSystemUserService.GetSystemUsersAllAsync().Result.FirstOrDefault(x => x.Email.ToLower() == email.ToLower());
+
+            return user.Id;
+        }
     }
 }

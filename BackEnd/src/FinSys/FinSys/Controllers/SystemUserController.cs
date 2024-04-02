@@ -12,6 +12,7 @@ using FinSys.Query.Queries.GetSystemUserById;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 using static Slapper.AutoMapper;
 
 namespace FinSys.Controllers
@@ -116,6 +117,33 @@ namespace FinSys.Controllers
             {
                 throw new Exception("Erro ao inserir usuarios: ", ex);
             }
+        }
+
+        [HttpPost("Login")]
+        public async Task<ActionResult<UserToken>>  Login(LoginModel login)
+        {
+            var exists = await _authenticateService.UserExists(login.Email);
+
+            if (!exists)
+            {
+                Unauthorized("Usuário não existe");
+            }
+
+            var result = await _authenticateService.AuthenticateAsync(login.Email, login.Password);
+
+            if(!result)
+            {
+                return Unauthorized("Usuário ou senha inválido! ");
+            }
+
+            var user = await _authenticateService.GetUserByEmail(login.Email);
+
+            var token = _authenticateService.GenerateToken(user, login.Email);
+
+            return new UserToken
+            {
+                Token = token
+            };
         }
 
         [HttpPut]
