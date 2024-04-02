@@ -9,6 +9,12 @@ using FinSys.Uploads;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Web.Http;
+using FromBodyAttribute = Microsoft.AspNetCore.Mvc.FromBodyAttribute;
+using HttpGetAttribute = Microsoft.AspNetCore.Mvc.HttpGetAttribute;
+using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
+using HttpPutAttribute = Microsoft.AspNetCore.Mvc.HttpPutAttribute;
+using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace FinSys.Controllers
 {
@@ -106,6 +112,7 @@ namespace FinSys.Controllers
         }
 
         [HttpPost("Upload")]
+        [Authorize]
         public async Task<IActionResult> Upload(IFormFile file, CancellationToken cancellationToken) 
         {
             try
@@ -129,6 +136,7 @@ namespace FinSys.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody]AddExpendingCommand request, CancellationToken cancellationToken)
         {
 
@@ -152,6 +160,7 @@ namespace FinSys.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> Put([FromBody] UpdateExpendingCommand request, CancellationToken cancellationToken)
         {
             var validationResult = _expendingUpdateValidator.Validate(request);

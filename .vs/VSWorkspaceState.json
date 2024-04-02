@@ -2,12 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\BackEnd",
+    "\\BackEnd\\Scripts",
     "\\BackEnd\\src",
     "\\BackEnd\\src\\FinSys",
     "\\BackEnd\\src\\FinSys\\FinSys.Command",
-    "\\BackEnd\\src\\FinSys\\FinSys.Command\\AddExpendingCommand",
     "\\BackEnd\\src\\FinSys\\FinSys.Command\\AddSystemUserCommand",
     "\\BackEnd\\src\\FinSys\\FinSys.Service",
+    "\\BackEnd\\src\\FinSys\\FinSys.Service\\Domain",
     "\\BackEnd\\src\\FinSys\\FinSys.Service\\Expendings",
     "\\BackEnd\\src\\FinSys\\FinSys.Service\\Expendings\\AddExpendingService"
   ],

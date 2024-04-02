@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FinSys.Command.AddExpendingCommand;
 using FinSys.Command.AddSystemUserCommand;
+using FinSys.Command.Interfaces;
 using FinSys.Command.UpdateExpendingCommand;
 using FinSys.Command.UpdateSystemUserCommand;
 using FinSys.Models;
@@ -23,6 +24,7 @@ namespace FinSys.Controllers
         private IMapper _mapper;
         private IMediator _mediator;
 
+        private readonly IAuthenticate _authenticateService;
         private readonly IValidator<AddSystemUserCommand> _systemUserAddValidator;
         private readonly IValidator<UpdateSystemUserCommand> _systemUserUpdateValidator;
 
@@ -35,6 +37,7 @@ namespace FinSys.Controllers
         public SystemUserController(IConfiguration configuration,
                                            IMapper mapper,
                                          IMediator mediator,
+                                     IAuthenticate authenticateService,
                   IValidator<AddSystemUserCommand> systemUserAddValidator,
                IValidator<UpdateSystemUserCommand> systemUserUpdateValidator,
                        AddSystemUserCommandHandler addSystemUserCommandHandler,
@@ -46,6 +49,7 @@ namespace FinSys.Controllers
             _configuration = configuration;
             _mapper = mapper;
             _mediator = mediator;
+            _authenticateService = authenticateService;
             _systemUserAddValidator = systemUserAddValidator;
             _systemUserUpdateValidator = systemUserUpdateValidator;
             _addSystemUserCommandHandler = addSystemUserCommandHandler;
@@ -86,7 +90,7 @@ namespace FinSys.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult<UserToken>> Post([FromBody] AddSystemUserCommand request, CancellationToken cancellationToken)
+        public async Task<ActionResult<UserToken>> Post([FromBody] AddSystemUserCommand request, CancellationToken cancellationToken)
         {
 
             var validationResult = _systemUserAddValidator.Validate(request);
@@ -96,14 +100,20 @@ namespace FinSys.Controllers
                 return BadRequest(validationResult.Errors.Select(error => error.ErrorMessage));
             }
 
+            var userExists = await _authenticateService.UserExists(request.Email);
+
+            if (userExists)
+            {
+                return BadRequest("Usuario já cadastrado.");
+            }
+
             try
             {
-                await _addSystemUserCommandHandler.Handle(request, cancellationToken);
-                return Ok();
+                var result = await _addSystemUserCommandHandler.Handle(request, cancellationToken);
+                return Ok(result);
             }
             catch (Exception ex)
             {
-
                 throw new Exception("Erro ao inserir usuarios: ", ex);
             }
         }

@@ -1,5 +1,7 @@
 ﻿using FinSys.Command.AddExpendingCommand;
 using FinSys.Command.AddSystemUserCommand;
+using FinSys.Command.Domain;
+using FinSys.Command.Interfaces;
 using FinSys.Command.UpdateExpendingCommand;
 using FinSys.Command.UpdateSystemUserCommand;
 using FinSys.Command.UploadExpendingCommand;
@@ -49,7 +51,7 @@ namespace FinSys.IoC
             services.AddTransient<IRequestHandler<UpdateExpendingCommand>, UpdateExpendingCommandHandler>();
             services.AddTransient<IRequestHandler<UploadExpendingCommand>, UploadExpendingCommandHandler>();
 
-            services.AddTransient<IRequestHandler<AddSystemUserCommand>, AddSystemUserCommandHandler>();
+            services.AddTransient<IRequestHandler<AddSystemUserCommand, UserToken>, AddSystemUserCommandHandler>();
             services.AddTransient<IRequestHandler<UpdateSystemUserCommand>, UpdateSystemUserCommandHandler>();
         }
 
@@ -63,6 +65,8 @@ namespace FinSys.IoC
             services.AddScoped<IAddSystemUserService, AddSystemUserService>();
             services.AddScoped<IGetSystemUserService, GetSystemUserService>();
             services.AddScoped<IUpdateSystemUseService, UpdateSystemUseService>();
+
+            services.AddScoped<IAuthenticate, Authenticate>();
         }
 
         public void InjectHandler(IServiceCollection services)

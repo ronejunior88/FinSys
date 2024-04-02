@@ -36,8 +36,8 @@ CREATE TABLE SystemUser (
 [Id] uniqueidentifier PRIMARY KEY NOT NULL,
 [Name] VARCHAR(150) NOT NULL,
 [Email] VARCHAR(200) NOT NULL,
-[PasswordHash] VARBINARY(MAX) NOT NULL,
-[PasswordSalt] VARBINARY(MAX) NOT NULL,
+[PasswordHash] VARBINARY(MAX) NULL,
+[PasswordSalt] VARBINARY(MAX) NULL,
 [DateBirth] VARCHAR(500)
 )
 GO

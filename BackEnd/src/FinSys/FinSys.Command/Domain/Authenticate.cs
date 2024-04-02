@@ -1,23 +1,20 @@
-﻿using FinSys.Query.Interfaces;
+﻿using FinSys.Command.Interfaces;
+using FinSys.Query.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace FinSys.Query.Autheticate
+namespace FinSys.Command.Domain
 {
-    internal class AuthenticateService : IAutheticate
+    public class Authenticate : IAuthenticate
     {
         private readonly IConfiguration _configuration;
         private readonly IGetSystemUserService _getSystemUserService;
 
-        public AuthenticateService(IConfiguration configuration, IGetSystemUserService getSystemUserService)
+        public Authenticate(IConfiguration configuration, IGetSystemUserService getSystemUserService)
         {
             _configuration = configuration;
             _getSystemUserService = getSystemUserService;
@@ -25,7 +22,7 @@ namespace FinSys.Query.Autheticate
 
         public async Task<bool> AuthenticateAsync(string email, string senha)
         {
-            var user =  _getSystemUserService.GetSystemUsersAllAsync().Result.FirstOrDefault(x => x.Name.ToLower() == email.ToLower());
+            var user = _getSystemUserService.GetSystemUsersAllAsync().Result.FirstOrDefault(x => x.Email.ToLower() == email.ToLower());
 
             if (user == null)
             {
@@ -43,7 +40,7 @@ namespace FinSys.Query.Autheticate
             return true;
         }
 
-        public string GenerateToken(int id, string email)
+        public string GenerateToken(Guid id, string email)
         {
             var Claims = new[]
             {
@@ -71,7 +68,7 @@ namespace FinSys.Query.Autheticate
 
         public async Task<bool> UserExists(string email)
         {
-            var user = _getSystemUserService.GetSystemUsersAllAsync().Result.FirstOrDefault(x => x.Name.ToLower() == email.ToLower());
+            var user = _getSystemUserService.GetSystemUsersAllAsync().Result.FirstOrDefault(x => x.Email.ToLower() == email.ToLower());
 
             if (user == null)
             {
