@@ -126,7 +126,7 @@ namespace FinSys.Controllers
 
             if (!exists)
             {
-                Unauthorized("Usuário não existe");
+                Unauthorized("Usuário não cadastrado");
             }
 
             var result = await _authenticateService.AuthenticateAsync(login.Email, login.Password);

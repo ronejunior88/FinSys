@@ -38,7 +38,7 @@ CREATE TABLE SystemUser (
 [Email] VARCHAR(200) NOT NULL,
 [PasswordHash] VARBINARY(MAX) NULL,
 [PasswordSalt] VARBINARY(MAX) NULL,
-[DateBirth] VARCHAR(500)
+[DateBirth] DATETIME
 )
 GO
  
