@@ -147,7 +147,7 @@ namespace FinSys.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] UpdateSystemUserCommand request, CancellationToken cancellationToken)
+        public async Task<ActionResult<UserToken>> Put([FromBody] UpdateSystemUserCommand request, CancellationToken cancellationToken)
         {
             var validationResult = _systemUserUpdateValidator.Validate(request);
 
@@ -156,11 +156,26 @@ namespace FinSys.Controllers
                 return BadRequest(validationResult.Errors.Select(error => error.ErrorMessage));
             }
 
+            var userExists = await _authenticateService.UserExists(request.Email);
+
+            if (!userExists)
+            {
+                return BadRequest("Usuario não cadastrado.");
+            }
+
+            var userOldPassword = await _authenticateService.AuthenticateAsync(request.Email, request.OldPassword);
+
+            if (!userOldPassword)
+            {
+                return Unauthorized("Senha antiga incorreta! ");
+            }
+
             try
             {
-                await _updateSystemUserCommandHandler.Handle(request, cancellationToken);
-                return Ok();
+                var result = await _updateSystemUserCommandHandler.Handle(request, cancellationToken);
+                return Ok(result);
             }
+
             catch (Exception ex)
             {
                 throw new Exception("Erro ao atualizar os usuario: ", ex);

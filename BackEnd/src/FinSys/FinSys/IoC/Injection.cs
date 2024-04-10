@@ -52,7 +52,7 @@ namespace FinSys.IoC
             services.AddTransient<IRequestHandler<UploadExpendingCommand>, UploadExpendingCommandHandler>();
 
             services.AddTransient<IRequestHandler<AddSystemUserCommand, UserToken>, AddSystemUserCommandHandler>();
-            services.AddTransient<IRequestHandler<UpdateSystemUserCommand>, UpdateSystemUserCommandHandler>();
+            services.AddTransient<IRequestHandler<UpdateSystemUserCommand, UserToken>, UpdateSystemUserCommandHandler>();
         }
 
         public void InjectServices(IServiceCollection services)
