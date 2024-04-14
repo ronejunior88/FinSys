@@ -63,11 +63,11 @@ namespace FinSys.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAll(int page, int numberRow, CancellationToken cancellationToken)
         {
             try
             {
-                var result = await _getExpendingsAll.Handle(new GetExpendingsAll(), cancellationToken);
+                var result = await _getExpendingsAll.Handle(new GetExpendingsAll(page, numberRow), cancellationToken);
                 return Ok(result);
             }
             catch (Exception ex)

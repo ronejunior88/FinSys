@@ -16,10 +16,10 @@ namespace FinSys.Command.AddExpendingCommand
         [Required(ErrorMessage = "O campo inativo é obrigatório.")]
         public bool Inative { get; set; }
 
-        [Required(ErrorMessage = "O campo Mensagem é obrigatório.")]
+        [Required(ErrorMessage = "O campo Data de expiração é obrigatório.")]
         public DateTime DateExpiration { get; set; }
 
-        [Required(ErrorMessage = "O campo Mensagem é obrigatório.")]
+        [Required(ErrorMessage = "O campo Data Emissão é obrigatório.")]
         public DateTime DateRelease { get; set; }
 
         public DateTime? DatePayment { get; set; }

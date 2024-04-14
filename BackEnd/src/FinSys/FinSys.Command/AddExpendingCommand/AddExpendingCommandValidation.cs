@@ -19,7 +19,6 @@ namespace FinSys.Command.AddExpendingCommand
 
 
             RuleFor(command => command.Inative)
-             .NotEmpty().WithMessage("O inativo não pode estar vazio")
              .NotNull().WithMessage("O inativo não pode estar nulo");
 
             RuleFor(command => command.DateExpiration)

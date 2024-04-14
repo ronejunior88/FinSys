@@ -17,7 +17,7 @@ namespace FinSys.Query.Queries.GetExpendingsAll
         }
         public async Task<IEnumerable<GetExpendingsAllResponse>> Handle(GetExpendingsAll request, CancellationToken cancellationToken)
         {
-            return await _getExpendingService.GetExpendingsAllAsync();
+            return _getExpendingService.GetExpendingsAllAsync().Result.Skip((request.Page - 1) * request.NumberRow).Take(request.NumberRow);
         }
     }
 }
