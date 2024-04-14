@@ -96,11 +96,11 @@ namespace FinSys.Controllers
         }
 
         [HttpGet("Value")]
-        public async Task<IActionResult> GetByValue(double value, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetByValue(double value, int page, int numberRow, CancellationToken cancellationToken)
         {
             try
             {
-                var result = await _getExpendingByValue.Handle(new GetExpendingByValue(value), cancellationToken);
+                var result = await _getExpendingByValue.Handle(new GetExpendingByValue(value, page, numberRow), cancellationToken);
                 return Ok(result);
             }
             catch (Exception ex)

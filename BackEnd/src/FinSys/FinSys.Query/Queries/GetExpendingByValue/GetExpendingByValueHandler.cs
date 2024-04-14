@@ -14,7 +14,7 @@ namespace FinSys.Query.Queries.GetExpendingByValue
 
         public async Task<IEnumerable<GetExpendingByValueResponse>> Handle(GetExpendingByValue request, CancellationToken cancellationToken)
         {
-            return await _getExpendingService.GetExpendingByValueAsync(request);
+            return _getExpendingService.GetExpendingByValueAsync(request).Result.Skip((request.Page - 1) * request.NumberRow).Take(request.NumberRow);
         }
     }
 }
